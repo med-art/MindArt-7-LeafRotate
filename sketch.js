@@ -1,9 +1,10 @@
-let dots = [];
+let leaf = [];
+
 let tempwinMouseX = 0;
 let tempwinMouseY = 0;
 let tempwinMouseX2 = 0;
 let tempwinMouseY2 = 0;
-let lineLayer, permaLine;
+let leafLayer, permaLine;
 let dotSize = 4;
 let dotQty = 20;
 let ringQty = 0;
@@ -20,23 +21,44 @@ let hueCapture = 0;
 let verifyX = 0;
 let verifyY = 0;
 
+let rot = 0
+let rotStart = 0;
+let rotEnd = 0;
+
 let introState = 1;
+
+let drawState = 0;
+
+let colTemp;
+
+let leafSelector = 0;
 
 function preload() {
   bg = loadImage('assets/paper.jpg');
   audio = loadSound('assets/audio.mp3');
+  for (i = 0; i < 24; i++) {
+    leaf[i] = loadImage('assets/leaf' + [i] + '.png')
+  }
 }
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   pixelDensity(1); // Ignores retina displays
-  lineLayer = createGraphics(width, height);
-  permaLine = createGraphics(width, height);
+  leafLayer = createGraphics(width, height);
+  drawLayer = createGraphics(width, height);
+  uiLayer = createGraphics(width, height);
   colorMode(HSB, 360, 100, 100, 100);
-  lineLayer.colorMode(HSB, 360, 100, 100, 100);
-  permaLine.colorMode(HSB, 360, 100, 100, 100);
+  leafLayer.colorMode(HSB, 360, 100, 100, 100);
+  drawLayer.colorMode(RGB, 255, 255, 255, 100);
+  //drawLayer.blendMode(REPLACE);
   dimensionCalc();
-  showIntro();
+  //showIntro();
+  writeTextUI();
+  makeSwatch();
+  noTint();
+  image(bg, 0, 0, width, height);
+  rot = PI;
+  touchMoved();
 }
 
 function dimensionCalc() {
@@ -53,383 +75,94 @@ function dimensionCalc() {
     lmax = height / 100;
     circleRad = shortEdge * 0.45;
   }
+    rectWidth = height / 5;
 }
 
-function stage1grid() {
-  let r = longEdge / 100;
-  ringQty = 1;
-  dotsCount = 0;
+function touchStarted(){
 
+  rotStart = atan2(mouseY - height / 2, mouseX - width / 2);
 
-  if (stage === 0) {
-    dotQty = 7;
+    if (mouseX < rectWidth/2) {
+      if (mouseY < rectWidth) {
+        colChoice = 0;
+      } else if (mouseY > rectWidth && mouseY < rectWidth * 2) {
+            colChoice = 1;
+      } else if (mouseY > rectWidth * 2 && mouseY < rectWidth * 3) {
+            colChoice = 2;
+      } else if (mouseY > rectWidth * 3 && mouseY < rectWidth * 4) {
+            colChoice = 3;
+      } else if (mouseY > rectWidth * 4) {
+         colChoice = 4;
+      }
+      return false;
   }
-  if (stage === 1) {
-    dotQty = 10;
-  }
-  if (stage === 2) {
-    dotQty = 20;
-  }
-
-  for (let i = 0; i < ringQty; i++) {
-    for (let j = 0; j < dotQty; j++) {
-      let rotateVal = j * (360 / dotQty);
-      let tran = (circleRad / ringQty) * (i + 1);
-      let tempX = (tran * cos(radians(rotateVal))) + width / 2;
-      let tempY = (tran * sin(radians(rotateVal))) + height / 2;
-      dots[dotsCount++] = new Dot(tempX, tempY, r);
-    }
-
-  }
-}
-
-function stage2grid() {
-  let r = longEdge / 100;
-  dotsCount = 0;
-
-  if (stage === 3) {
-    dotQty = 3;
-    ringQty = 2;
-    r = longEdge / 100;
-  }
-
-  if (stage === 4) {
-    dotQty = 7;
-    ringQty = 3;
-    r = longEdge / 150;
-  }
-
-  if (stage === 5) {
-    dotQty = 3;
-    ringQty = 10;
-    r = longEdge / 150;
-  }
-
-  for (let i = 0; i < ringQty; i++) {
-    for (let j = 0; j < dotQty + (i * 3); j++) {
-
-      let rotateVal = j * (360 / (dotQty + (i * 3)));
-      let tran = (circleRad / ringQty) * (i + 1);
-
-      let tempX = (tran * cos(radians(rotateVal))) + width / 2;
-      let tempY = (tran * sin(radians(rotateVal))) + height / 2;
-
-      r = r - (r / 100);
-
-      //console.log(rotateVal);
-
-      //  lineLayer.circle(tempX, tempY, r-(i*lmax));
-
-      dots[dotsCount++] = new Dot(tempX, tempY, r);
-
-    }
-  }
-
-
-}
-
-function stage3grid() {
-  // at these are basic arrangements of grids
-  let r = longEdge / 100;
-  let tempR;
-
-  dotsCount = 0;
-
-  if (stage === 6) {
-    dotQty = 7;
-    ringQty =11;
-    r = longEdge / 300;
-  circleRad = shortEdge*1;
-    gap = circleRad*0.7;
-    remainder = circleRad - gap;
-
-  }
-
-  if (stage === 7) {
-    dotQty = 7;
-    ringQty = 14;
-    r = longEdge / 450;
-    circleRad = shortEdge*0.75;
-    gap = circleRad*0.8;
-    remainder = circleRad - gap;
-  }
-
-  if (stage === 8) {
-    dotQty = 7;
-    ringQty = 17;
-    r = longEdge / 600;
-    circleRad = shortEdge*0.5
-    gap = circleRad*0.95;
-    remainder = circleRad - gap;
-
-  }
-
-  for (let i = 0; i < ringQty; i++) {
-    for (let j = 0; j < dotQty * (i); j++) {
-
-      let rotateVal = j * (360 / (dotQty * (i)));
-      let tran = (gap / ringQty) * (i) + remainder;
-
-      let tempX = (tran * cos(radians(rotateVal))) + width / 2;
-      let tempY = (tran * sin(radians(rotateVal))) + height / 2;
-
-      tempR = r * (1 + int(random(0, 2)));
-
-      //console.log(rotateVal);
-
-      //  lineLayer.circle(tempX, tempY, r-(i*lmax));
-
-      dots[dotsCount++] = new Dot(tempX, tempY, tempR);
-
-    }
-  }
-
-
-}
-
-function stage4grid() {
-  // at these are basic arrangements of grids
-  let r = longEdge / 100;
-  let gap;
-  let remainder;
-
-  dotsCount = 0;
-
-  if (stage === 9) {
-    dotQty = 50;
-    r = longEdge / 180;
-    gap = circleRad * 0.9;
-    remainder = circleRad - gap;
-
-  }
-
-  if (stage === 10) {
-    dotQty = 100;
-    r = longEdge / 200;
-    gap = circleRad * 0.7;
-    remainder = circleRad - gap;
-
-  }
-
-  if (stage === 11) {
-    dotQty = 200;
-    r = longEdge / 400;
-    gap = circleRad * 0.5;
-    remainder = circleRad - gap;
-
-  }
-
-  for (let i = 0; i < dotQty; i++) {
-    let rotateVal = i * 137.5;
-    let tran = (((gap) / dotQty) * (i + 1)) + remainder;
-
-    let tempX = (tran * cos(radians(rotateVal))) + width / 2;
-    let tempY = (tran * sin(radians(rotateVal))) + height / 2;
-
-    r = r + ((i / 40000) * lmax);
-
-
-
-    //  lineLayer.circle(tempX, tempY, r-(i*lmax));
-
-    dots[dotsCount++] = new Dot(tempX, tempY, r);
-
-
-  }
-
-
-}
-
-function stage5grid() {
-
-  // at these are basic arrangements of grids
-  let r = longEdge / 100;
-
-  dotsCount = 0;
-
-  if (stage === 12) {
-    dotQty = 1000;
-    r = longEdge / 1500;
-    circleRad = circleRad;
-  }
-
-  if (stage === 13) {
-    dotQty = 1000;
-    r = longEdge / 1000;
-    circleRad = circleRad * 1.5;
-  }
-
-  if (stage === 14) {
-    dotQty = 1000;
-    r = longEdge / 750;
-    circleRad = circleRad * 2;
-    writeRestartUI();
-
-  }
-
-  for (let i = 0; i < dotQty; i++) {
-    let rotateVal = i * 137.5;
-    let tran = (((circleRad * 0.8) / dotQty) * (i + 1)) + circleRad * 0.2;
-
-    let tempX = (tran * cos(radians(rotateVal))) + width / 2;
-    let tempY = (tran * sin(radians(rotateVal))) + height / 2;
-
-    r = r + r / 1000;
-    let tempRad = random(r * 0.5, r * 2.5)
-
-
-
-    //  lineLayer.circle(tempX, tempY, r-(i*lmax));
-
-    dots[dotsCount++] = new Dot(tempX, tempY, tempRad);
-
-
-  }
-
-
-
-}
-
-function nextGrid() {
-
-colHue = random(0,360);
-  permaLine.clear();
-  if (stage < 3) {
-    stage1grid();
-  } else if (stage >= 3 && stage < 6) {
-    stage2grid();
-  } else if (stage >= 6 && stage < 9) {
-    stage3grid();
-  } else if (stage >= 9 && stage < 12) {
-    stage4grid();
-  } else if (stage >= 12) {
-    stage5grid();
-  }
-  stage++;
-}
-
-function draw() {
-
-if (introState === 0){
-  image(bg, 0, 0, width, height);
-  image(lineLayer, 0, 0);
-  image(permaLine, 0, 0);
-  for (let i = 0; i < dotsCount; i++) {
-    dots[i].show();
-  }
-}
-
-}
-
-function touchStarted() {
-
-if (introState === 1 && textStroke === 80){
-  exitIntro();
-  audio.loop();
-}
-else {
-  for (let i = 0; i < dotsCount; i++) {
-    dots[i].getCol(winMouseX, winMouseY);
-  }
-
-
-
-  // let swatchTemp = int(random(0, 5));
-  // colHue = cloudHSB[swatchTemp][0];
-  // colSat = cloudHSB[swatchTemp][1];
-  // colBri = cloudHSB[swatchTemp][2];
-}
 }
 
 
 function touchMoved() {
 
-  for (let i = 0; i < dotsCount; i++) {
-    dots[i].clicked(winMouseX, winMouseY);
-  }
-  hueDrift = int(random(-2, 2));
-  satDrift = int(random(-2, 2));
-  brightDrift = int(random(-2, 2));
-  lineLayer.stroke(colHue + hueDrift, colSat + satDrift, colBri + brightDrift, 80);
-  lineLayer.strokeWeight(5);
-  lineLayer.clear();
-  if (throughDotCount > 0) {
-    lineLayer.line(tempwinMouseX, tempwinMouseY, winMouseX, winMouseY);
-  }
-  return false;
-}
+  if (drawState === 0){
 
-function copyLine() {
-  permaLine.stroke(colHue + hueDrift, colSat + hueDrift, colBri + brightDrift, 80);
-  permaLine.strokeWeight(6);
-  if (throughDotCount > 1) {
-    permaLine.line(tempwinMouseX, tempwinMouseY, tempwinMouseX2, tempwinMouseY2);
-  }
-}
+  leafLayer.push();
+  leafLayer.clear();
+  leafLayer.imageMode(CENTER);
+  leafLayer.translate(width / 2, height / 2);
+    rotEnd = atan2(mouseY - height / 2, mouseX - width / 2);
+    rot = rot + (rotEnd - rotStart);
+    rotStart = rotEnd;
 
-function touchEnded() {
-  lineLayer.clear();
-  throughDotCount = 0;
+  leafLayer.rotate(rot);
+  leafLayer.translate(0,-height/5)
+  leafLayer.tint(255,10);
+  leafLayer.image(leaf[leafSelector], 0, 0, width / 2.5, width / 2.5);
+  leafLayer.pop();
+
+
 
 }
 
-class Dot {
-  constructor(x, y, r) {
+else if (drawState === 1){
+      makeDrawing(winMouseX, winMouseY, pwinMouseX, pwinMouseY);
 
-    this.x = x;
-    this.y = y;
-    this.r = r;
+}
 
-    this.brightness = 150;
-    this.h = colHue;
-    this.s = 0;
-    this.b = random(30, 225);
-    this.satTemp = random(100, 255);
-  }
+else if (drawState === 2){
+      wetDrawing(winMouseX, winMouseY, pwinMouseX, pwinMouseY);
+}
 
-  show() {
 
-    noStroke();
-    fill(this.h, this.s, this.b * 0.6, 100);
-    ellipse(this.x, this.y, this.r * 3);
-    fill(this.h, this.s, this.b * 0.8, 100);
-    ellipse(this.x, this.y, this.r * 2);
-    fill(this.h, this.s, this.b / 1, 100);
-    ellipse(this.x, this.y, this.r * 1);
-  }
 
-  getCol(x, y) {
-    let d = dist(x, y, this.x, this.y);
-    if (d < this.r * 4 && (this.x != verifyX || this.y != verifyY)) {
-      colHue = this.h;
-      this.s = this.satTemp;
-      colBri = this.b;
-    }
-  }
 
-  clicked(x, y) {
+}
 
-    let d = dist(x, y, this.x, this.y);
-    if (d < this.r * 4 && (this.x != verifyX || this.y != verifyY)) {
-      verifyX = this.x;
-      verifyY = this.y;
-      tempwinMouseX2 = tempwinMouseX;
-      tempwinMouseY2 = tempwinMouseY;
-      tempwinMouseX = this.x;
-      tempwinMouseY = this.y;
-      throughDotCount++;
-      this.brightness = 250;
-      if (colHue != this.h) {
-        if (abs(colHue - this.h) > 280) {
-          this.h = (((this.h + colHue) / 2) - 180) % 360;;
-        } else {
-          this.h = ((this.h + colHue) / 2) % 360;;
-        }
-      }
-      colHue = this.h;
-      this.s = this.satTemp;
-      colBri = this.b;
-      copyLine();
-    }
-  }
+
+function makeDrawing(_x, _y, pX, pY){
+  drawLayer.strokeWeight(constrain(abs((_y + _x) - (pX + pY)), 2, 5.5)); // for line work
+    drawLayer.stroke(hexColours[colChoice]);
+  drawLayer.line(_x, _y, pX, pY);
+}
+
+function wetDrawing(_x, _y, pX, pY){
+//  colTemp = drawLayer.get(_x, _y);
+
+  let off = (winMouseY * width + winMouseX) * 1 * 4;
+  drawLayer.loadPixels();
+  let _r = drawLayer.pixels[off];
+  let _g = drawLayer.pixels[off + 1];
+  let _b = drawLayer.pixels[off + 2];
+  let _a = drawLayer.pixels[off + 3]*0.1;
+
+
+  drawLayer.stroke(_r,_g,_b,_a);
+  drawLayer.strokeWeight(constrain(abs((_y + _x) - (pX + pY)), 30, 35)); // for line work
+    drawLayer.line(_x, _y, pX, pY);
+}
+
+
+function draw() {
+  image(bg, 0, 0, width, height);
+    image(leafLayer, 0, 0, width, height);
+  image(drawLayer, 0, 0, width, height);
+  image(uiLayer, 0, 0, width, height);
+
 }
