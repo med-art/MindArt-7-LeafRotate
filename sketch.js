@@ -79,10 +79,10 @@ function touchStarted() {
 
 
   if (introState === 0) {
-
+  audio.loop();
     slide = 1;
     slideShow();
-    audio.loop();
+
     introState = 1;
   } else if (introState === 2) {
     textLayer.clear();
