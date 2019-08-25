@@ -79,7 +79,7 @@ function mousePressed() {
 
 
   if (introState === 0) {
-    audio.loop(7000);
+    audio.loop(7);
     slide = 1;
     slideShow();
 
