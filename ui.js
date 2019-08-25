@@ -89,7 +89,7 @@ function writeRestartUI() {
 
 function restart() {
   drawLayer.clear();
-  leafSelector = int(random(0, 24));
+  leafSelector = int(random(0, 13));
   rot = PI;
   touchMoved();
 

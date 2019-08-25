@@ -36,7 +36,7 @@ let leafSelector = 0;
 function preload() {
   bg = loadImage('assets/paper.jpg');
   audio = loadSound('assets/audio.mp3');
-  for (i = 0; i < 24; i++) {
+  for (i = 0; i < 14; i++) {
     leaf[i] = loadImage('assets/leaf' + [i] + '.png')
   }
 }
@@ -112,7 +112,7 @@ function touchMoved() {
     rotStart = rotEnd;
 
   leafLayer.rotate(rot);
-  leafLayer.translate(0,-height/5)
+  leafLayer.translate(0,-height/6)
   leafLayer.tint(255,10);
   leafLayer.image(leaf[leafSelector], 0, 0, width / 2.5, width / 2.5);
   leafLayer.pop();
@@ -137,7 +137,7 @@ else if (drawState === 2){
 
 
 function makeDrawing(_x, _y, pX, pY){
-  drawLayer.strokeWeight(constrain(abs((_y + _x) - (pX + pY)), 2, 5.5)); // for line work
+  drawLayer.strokeWeight(constrain(abs((_y + _x) - (pX + pY)), 5, 15)); // for line work
     drawLayer.stroke(hexColours[colChoice]);
   drawLayer.line(_x, _y, pX, pY);
 }
