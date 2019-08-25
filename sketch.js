@@ -75,7 +75,7 @@ function dimensionCalc() {
 
 }
 
-function mousePressed() {
+function touchStarted() {
 
 
   if (introState === 0) {
@@ -110,9 +110,7 @@ function mousePressed() {
 
   }
 
-
-
-  //  return false;
+  return false;
 }
 
 
@@ -174,7 +172,6 @@ else{
   drawLayer.line(_x, _y, pX, pY);
   drawLayer.loadPixels(); // relocated here in effor to optimise
 }
-
 
 }
 
