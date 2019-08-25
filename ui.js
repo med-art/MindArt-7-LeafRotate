@@ -4,7 +4,7 @@ let rectWidth;
 let colChoice = 0;
 
 let brushColours = [239, 51, 64, 168, 199, 0, 255, 215, 0, 241, 230, 178, 0, 107, 56];
-let hexColours = ["#EF3340", "#A8C700", "#FFD700", "#F23005", "#007236", "#4C6A90"]
+let hexColours = ["#EF3340", "#A8C700", "#FFD700", "#FA6122", "#007236", "#4C6A90"]
 
 function writeTextUI() {
 

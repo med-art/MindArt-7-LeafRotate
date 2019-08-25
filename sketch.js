@@ -138,7 +138,7 @@ return false;
 
 
 function makeDrawing(_x, _y, pX, pY){
-  drawLayer.strokeWeight(constrain(abs((_y + _x) - (pX + pY)), 5, 15)); // for line work
+  drawLayer.strokeWeight(constrain(abs((_y + _x) - (pX + pY)), 5, 10)); // for line work
     drawLayer.stroke(getCol);
   drawLayer.line(_x, _y, pX, pY);
 }
@@ -151,7 +151,7 @@ let _r, _g, _b, _a;
   drawLayer.loadPixels();
 
   for (i = -5; i < 5; i++){
-  let off = ((winMouseY+i) * width + (winMouseX+i)) * 1 * (4);
+  let off = ((winMouseY+i) * width + (winMouseX+i)) * 1 * 4;
   _r = drawLayer.pixels[off];
   _g = drawLayer.pixels[off + 1];
   _b = drawLayer.pixels[off + 2];
@@ -162,7 +162,7 @@ let _r, _g, _b, _a;
 
 
   drawLayer.stroke(_r,_g,_b,_a);
-  drawLayer.strokeWeight(constrain(abs((_y + _x) - (pX + pY)), 30, 35)); // for line work
+  drawLayer.strokeWeight(constrain(abs((_y + _x) - (pX + pY)), 30, 50)); // for line work
     drawLayer.line(_x, _y, pX, pY);
 }
 
