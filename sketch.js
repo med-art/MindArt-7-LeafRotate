@@ -75,7 +75,7 @@ function dimensionCalc() {
     lmax = height / 100;
     circleRad = shortEdge * 0.45;
   }
-    rectWidth = height / 5;
+
 }
 
 function touchStarted(){
@@ -117,7 +117,7 @@ function touchMoved() {
   leafLayer.rotate(rot);
   leafLayer.translate(0,-height/10);
   leafLayer.tint(255,10);
-  leafLayer.image(leaf[leafSelector], 0, 0, width / 2, width / 2);
+  leafLayer.image(leaf[leafSelector], 0, 0, longEdge/1.5, longEdge/1.5);
   leafLayer.pop();
 
 

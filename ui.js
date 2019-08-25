@@ -1,4 +1,3 @@
-
 let button1, button2, button3, button4;
 let colH1, colH2, colH3;
 let rectWidth;
@@ -20,78 +19,83 @@ function writeTextUI() {
 
 
   button2 = createButton('Draw');
-  button2.position(rectWidth/2, windowHeight - lmax * 5);
   button2.class('deselect');
   button2.mousePressed(drawImg);
 
   button3 = createButton('Wet');
-  button3.position(rectWidth/2 + (12*lmax), windowHeight - lmax * 5);
   button3.class('deselect');
   button3.mousePressed(paintImg);
 
   button1 = createButton('Rotate');
-  button1.position(rectWidth/2 + (24*lmax), windowHeight - lmax * 5);
   button1.class('select');
   button1.mousePressed(rotateImg);
 
   button4 = createButton('Save');
-  button4.position(windowWidth - (28 * lmax) - (lmax * 1.5), windowHeight - lmax * 5);
+
   button4.class('save');
   button4.mousePressed(saveImg);
 
   button5 = createButton('New Drawing');
-  button5.position(windowWidth - (18 * lmax) - (lmax * 1.5), windowHeight - lmax * 5);
+
   button5.class('restart');
   button5.mousePressed(restart);
+
+  if (width > height) {
+
+      rectWidth = height / 5;
+
+    button2.position(rectWidth / 2, lmax * 1);
+    button3.position(rectWidth / 2, lmax * 5);
+    button1.position(rectWidth / 2, lmax * 9);
+
+    button4.position(rectWidth / 2, windowHeight - lmax * 5);
+    button5.position(rectWidth / 2, windowHeight - lmax * 10);
+  }
+
+else if (width <= height) {
+
+    rectWidth = width / 5;
+    button2.position(1*lmax, windowHeight - lmax * 15);
+    button3.position(13 * lmax, windowHeight - lmax * 15);
+    button1.position(25 * lmax, windowHeight - lmax * 15);
+
+    button4.position(windowWidth - (28 * lmax) - (lmax * 1.5), windowHeight - lmax * 15);
+    button5.position(windowWidth - (18 * lmax) - (lmax * 1.5), windowHeight - lmax * 15);
+  }
+
 }
 
 
-function rotateImg(){
+function rotateImg() {
   button1.class('select');
   button2.class('deselect');
   button3.class('deselect');
   drawState = 0;
 }
 
-function drawImg(){
+function drawImg() {
   button1.class('deselect');
   button2.class('select');
   button3.class('deselect');
   drawState = 1;
 }
 
-function paintImg(){
+function paintImg() {
   button1.class('deselect');
   button2.class('deselect');
   button3.class('select');
   drawState = 2;
 }
 
-function writeRestartUI() {
-
-
-  textSize(longEdge / 50);
-  fill(0);
-  noStroke();
-
-  button2.remove();
-  button2 = createButton('Restart');
-  button2.position(windowWidth - (15 * lmax) - (lmax * 3), windowHeight - lmax * 6);
-  colH2 = color(355, 70, 80);
-  button2.style('background-color', colH2);
-  button2.style('font-size', '2.5vmax');
-  button2.style('color', 'white');
-  button2.style('border-radius', '2.5vmax')
-  button2.style('width', '15vmax')
-  button2.mousePressed(restart);
-}
 
 
 function restart() {
   drawLayer.clear();
   leafSelector = int(random(0, 13));
   rot = PI;
+  drawState = 0;
   touchMoved();
+  rotateImg();
 
 
 }
@@ -100,12 +104,34 @@ function saveImg() {
   save('dotscape' + month() + day() + hour() + second() + '.jpg');
 }
 
-function makeSwatch(){
+function makeSwatch() {
 
-  for (let i = 1; i < 6; i++) {
-    uiLayer.fill(color(hexColours[i - 1]));
-    uiLayer.noStroke();
-    uiLayer.rect(0, (rectWidth * i) - rectWidth, rectWidth/2, rectWidth * i);
-    image(uiLayer, 0, 0);
+
+
+  if (width > height) {
+
+    rectWidth = height / 5;
+
+    for (let i = 1; i < 6; i++) {
+      uiLayer.fill(color(hexColours[i - 1]));
+      uiLayer.noStroke();
+      uiLayer.rect()
+      uiLayer.rect(0, (rectWidth * i) - rectWidth, rectWidth / 2, rectWidth * i);
+      image(uiLayer, 0, 0);
+    }
   }
+
+// portrait, UI on bottom
+  if (width <= height) {
+
+  rectWidth = width / 5;
+
+    for (let i = 1; i < 6; i++) {
+      uiLayer.fill(color(hexColours[i - 1]));
+      uiLayer.noStroke();
+      uiLayer.rect(rectWidth*(i-1), height-(rectWidth/2), rectWidth*(i), height);
+      image(uiLayer, 0, 0);
+    }
+  }
+
 }
