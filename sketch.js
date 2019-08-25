@@ -161,15 +161,19 @@ function wetDrawing(_x, _y, pX, pY) {
 
   let off = (winMouseY * width + winMouseX) * 1 * 4;
 
-    _r = drawLayer.pixels[off];
-    _g = drawLayer.pixels[off + 1];
-    _b = drawLayer.pixels[off + 2];
-    _a = drawLayer.pixels[off + 3] * 0.1;
+    _r = drawLayer.pixels[off]*1.01;
+    _g = drawLayer.pixels[off + 1]*1.01
+    _b = drawLayer.pixels[off + 2]*1.01;
 
-  drawLayer.stroke(_r, _g, _b, _a);
+if (_r === 0 && g_ === 0 & b === 0){
+
+}
+else{
+  drawLayer.stroke(_r, _g, _b, 10);
   drawLayer.strokeWeight(25); // for line work
   drawLayer.line(_x, _y, pX, pY);
   drawLayer.loadPixels(); // relocated here in effor to optimise
+}
 
 
 }
