@@ -151,12 +151,12 @@ let _r, _g, _b, _a;
   drawLayer.loadPixels();
 
   for (i = 0; i < 100; i++){
-  let off = (winMouseY * width + winMouseX) * 1 * (4*i);
+  let off = ((winMouseY+i) * width + (winMouseX+i)) * 1 * (4);
   _r = drawLayer.pixels[off];
   _g = drawLayer.pixels[off + 1];
   _b = drawLayer.pixels[off + 2];
   _a = drawLayer.pixels[off + 3]*0.1;
-
+  console.log(i);
     if (_a > 0) {break ;}
   }
 
