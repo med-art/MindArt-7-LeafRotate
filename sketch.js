@@ -83,6 +83,7 @@ function mousePressed() {
     slide = 1;
     slideShow();
     introState = 1;
+
   } else if (introState === 2) {
     textLayer.clear();
     introState = 3;
@@ -162,7 +163,7 @@ function wetDrawing(_x, _y, pX, pY) {
     _r = drawLayer.pixels[off];
     _g = drawLayer.pixels[off + 1];
     _b = drawLayer.pixels[off + 2];
-    _a = drawLayer.pixels[off + 3] * 0.5;
+    _a = drawLayer.pixels[off + 3] * 0.2;
 
   drawLayer.stroke(_r, _g, _b, _a);
   drawLayer.strokeWeight(25); // for line work
