@@ -147,14 +147,15 @@ function wetDrawing(_x, _y, pX, pY){
 //  colTemp = drawLayer.get(_x, _y);
 let _r, _g, _b, _a;
 
-  let off = (winMouseY * width + winMouseX) * 1 * 4;
+
   drawLayer.loadPixels();
 
   for (i = 0; i < 10; i++){
-  _r = drawLayer.pixels[off + i];
-  _g = drawLayer.pixels[off + 1 + i];
-  _b = drawLayer.pixels[off + 2 + i];
-  _a = drawLayer.pixels[off + 3 + i]*0.1;
+  let off = (winMouseY * width + winMouseX) * 1 * (4*i);
+  _r = drawLayer.pixels[off];
+  _g = drawLayer.pixels[off + 1];
+  _b = drawLayer.pixels[off + 2];
+  _a = drawLayer.pixels[off + 3]*0.1;
 
     if (_a > 0) {break ;}
   }
