@@ -59,7 +59,7 @@ function setup() {
   makeSwatch();
   noTint();
   image(bg, 0, 0, width, height);
-  rot = PI;
+  rot = 0;
   touchMoved();
 }
 
@@ -145,13 +145,19 @@ function makeDrawing(_x, _y, pX, pY){
 
 function wetDrawing(_x, _y, pX, pY){
 //  colTemp = drawLayer.get(_x, _y);
+let _r, _g, _b, _a;
 
   let off = (winMouseY * width + winMouseX) * 1 * 4;
   drawLayer.loadPixels();
-  let _r = drawLayer.pixels[off];
-  let _g = drawLayer.pixels[off + 1];
-  let _b = drawLayer.pixels[off + 2];
-  let _a = drawLayer.pixels[off + 3]*0.1;
+
+  for (i = 0; i < 10; i++){
+  _r = drawLayer.pixels[off + i];
+  _g = drawLayer.pixels[off + 1 + i];
+  _b = drawLayer.pixels[off + 2 + i];
+  _a = drawLayer.pixels[off + 3 + i]*0.1;
+
+    if (_a > 0) {break ;}
+  }
 
 
   drawLayer.stroke(_r,_g,_b,_a);

@@ -4,7 +4,7 @@ let rectWidth;
 let colChoice = 0;
 
 let brushColours = [239, 51, 64, 168, 199, 0, 255, 215, 0, 241, 230, 178, 0, 107, 56];
-let hexColours = ["#EF3340", "#A8C700", "#FFD700", "#F1E6B2", "#007236"]
+let hexColours = ["#EF3340", "#A8C700", "#FFD700", "#F23005", "#007236", "#4C6A90"]
 
 function writeTextUI() {
 
@@ -42,19 +42,19 @@ function writeTextUI() {
 
   if (width > height) {
 
-      rectWidth = height / 5;
+      rectWidth = height / 6;
 
-    button2.position(rectWidth / 2, lmax * 1);
-    button3.position(rectWidth / 2, lmax * 5);
-    button1.position(rectWidth / 2, lmax * 9);
+    button2.position(rectWidth / 2, 0);
+    button3.position(rectWidth / 2, lmax * 3.5);
+    button1.position(rectWidth / 2, lmax * 7);
 
-    button4.position(rectWidth / 2, windowHeight - lmax * 5);
-    button5.position(rectWidth / 2, windowHeight - lmax * 10);
+    button4.position(rectWidth / 2, windowHeight - lmax * 8);
+    button5.position(rectWidth / 2, windowHeight - lmax * 4);
   }
 
 else if (width <= height) {
 
-    rectWidth = width / 5;
+    rectWidth = width / 6;
     button2.position(0, windowHeight - rectWidth/2 - (4*lmax));
     button3.position(12 * lmax, windowHeight -  rectWidth/2- (4*lmax));
     button1.position(24 * lmax, windowHeight -  rectWidth/2- (4*lmax));
@@ -92,7 +92,7 @@ function paintImg() {
 function restart() {
   drawLayer.clear();
   leafSelector = int(random(0, 13));
-  rot = PI;
+  rot = 0;
   drawState = 0;
   touchMoved();
   rotateImg();
@@ -110,9 +110,9 @@ function makeSwatch() {
 
   if (width > height) {
 
-    rectWidth = height / 5;
+    rectWidth = height / 6;
 
-    for (let i = 1; i < 6; i++) {
+    for (let i = 1; i < 7; i++) {
       uiLayer.fill(color(hexColours[i - 1]));
       uiLayer.noStroke();
       uiLayer.rect()
@@ -124,9 +124,9 @@ function makeSwatch() {
 // portrait, UI on bottom
   if (width <= height) {
 
-  rectWidth = width / 5;
+  rectWidth = width / 6;
 
-    for (let i = 1; i < 6; i++) {
+    for (let i = 1; i < 7; i++) {
       uiLayer.fill(color(hexColours[i - 1]));
       uiLayer.noStroke();
       uiLayer.rect(rectWidth*(i-1), height-(rectWidth/2), rectWidth*(i), height);
