@@ -80,6 +80,9 @@ function dimensionCalc() {
 
 function touchStarted(){
 
+
+    drawLayer.stroke(0,0,0,0);
+
   rotStart = atan2(mouseY - height / 2, mouseX - width / 2);
 
     if (mouseX < rectWidth/2) {
