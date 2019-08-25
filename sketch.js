@@ -131,7 +131,7 @@ function touchMoved() {
     leafLayer.rotate(rot);
     leafLayer.translate(0, -height / 10);
     leafLayer.tint(255, 10);
-    leafLayer.image(leaf[leafSelector], 0, 0, longEdge / 1.65, longEdge / 1.65);
+    leafLayer.image(leaf[leafSelector], 0, 0, shortEdge / 1.15, shortEdge / 1.15);
     leafLayer.pop();
 
 
