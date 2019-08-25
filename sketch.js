@@ -150,7 +150,7 @@ let _r, _g, _b, _a;
 
   drawLayer.loadPixels();
 
-  for (i = 0; i < 10; i++){
+  for (i = 0; i < 100; i++){
   let off = (winMouseY * width + winMouseX) * 1 * (4*i);
   _r = drawLayer.pixels[off];
   _g = drawLayer.pixels[off + 1];
