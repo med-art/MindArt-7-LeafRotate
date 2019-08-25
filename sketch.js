@@ -82,7 +82,7 @@ function touchStarted() {
 
     slide = 1;
     slideShow();
-    audio.loop(7);
+    //audio.loop(7);
     introState = 1;
   } else if (introState === 2) {
     textLayer.clear();
@@ -172,17 +172,16 @@ if (_a > 1){
   drawLayer.loadPixels(); // relocated here in effor to optimise
 }
 
-
 }
 
 
 function draw() {
 
   if (introState === 3) {
-    image(bg, 0, 0, width, height);
-    image(leafLayer, 0, 0, width, height);
+    //image(bg, 0, 0, width, height);
+  //  image(leafLayer, 0, 0, width, height);
     image(drawLayer, 0, 0, width, height);
-    image(uiLayer, 0, 0, width, height);
+  //  image(uiLayer, 0, 0, width, height);
   }
 
 }
