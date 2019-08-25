@@ -25,7 +25,6 @@ let rot = 0
 let rotStart = 0;
 let rotEnd = 0;
 
-let introState = 1;
 
 let drawState = 0;
 
@@ -49,18 +48,14 @@ function setup() {
   leafLayer = createGraphics(width, height);
   drawLayer = createGraphics(width, height);
   uiLayer = createGraphics(width, height);
+  textLayer = createGraphics(width, height);
   colorMode(HSB, 360, 100, 100, 100);
   leafLayer.colorMode(HSB, 360, 100, 100, 100);
   drawLayer.colorMode(RGB, 255, 255, 255, 100);
   //drawLayer.blendMode(REPLACE);
   dimensionCalc();
   //showIntro();
-  writeTextUI();
-  makeSwatch();
-  noTint();
-  image(bg, 0, 0, width, height);
-  rot = 0;
-  touchMoved();
+  slideShow();
 }
 
 function dimensionCalc() {
@@ -80,97 +75,122 @@ function dimensionCalc() {
 
 }
 
-function touchStarted(){
+function touchStarted() {
 
 
-  drawLayer.stroke(0,0,0,0);
+if(introState === 0){
+  introState = 1;
+  slide = 1;
+  slideShow();
+  audio.loop(7);
+}
+
+else if(introState === 2){
+  textLayer.clear();
+  introState = 3;
+  writeTextUI();
+  makeSwatch();
+  noTint();
+  image(bg, 0, 0, width, height);
+  rot = 0;
+  touchMoved();
+}
+
+
+else if (introState === 3){
+
+  drawLayer.stroke(0, 0, 0, 0);
   rotStart = atan2(mouseY - height / 2, mouseX - width / 2);
 
-if (width <= height && mouseY > (height-rectWidth/2)){
-getCol = uiLayer.get(winMouseX, winMouseY);
+  if (width <= height && mouseY > (height - rectWidth / 2)) {
+    getCol = uiLayer.get(winMouseX, winMouseY);
+  }
+
+  if (width > height && mouseX < rectWidth / 2) {
+    getCol = uiLayer.get(winMouseX, winMouseY);
+  }
+
+
 }
 
-if (width > height && mouseX < rectWidth/2){
-getCol = uiLayer.get(winMouseX, winMouseY);
-}
 
 
-
-    //  return false;
+  //  return false;
 }
 
 
 function touchMoved() {
 
-  if (drawState === 0){
+  if (drawState === 0) {
 
-  leafLayer.push();
-  leafLayer.clear();
-  leafLayer.imageMode(CENTER);
-  leafLayer.translate(width / 2, height / 2);
+    leafLayer.push();
+    leafLayer.clear();
+    leafLayer.imageMode(CENTER);
+    leafLayer.translate(width / 2, height / 2);
     rotEnd = atan2(mouseY - height / 2, mouseX - width / 2);
     rot = rot + (rotEnd - rotStart);
     rotStart = rotEnd;
 
-  leafLayer.rotate(rot);
-  leafLayer.translate(0,-height/10);
-  leafLayer.tint(255,10);
-  leafLayer.image(leaf[leafSelector], 0, 0, longEdge/1.75, longEdge/1.75);
-  leafLayer.pop();
+    leafLayer.rotate(rot);
+    leafLayer.translate(0, -height / 10);
+    leafLayer.tint(255, 10);
+    leafLayer.image(leaf[leafSelector], 0, 0, longEdge / 1.75, longEdge / 1.75);
+    leafLayer.pop();
 
 
 
-}
+  } else if (drawState === 1) {
+    makeDrawing(winMouseX, winMouseY, pwinMouseX, pwinMouseY);
 
-else if (drawState === 1){
-      makeDrawing(winMouseX, winMouseY, pwinMouseX, pwinMouseY);
-
-}
-
-else if (drawState === 2){
-      wetDrawing(winMouseX, winMouseY, pwinMouseX, pwinMouseY);
-}
+  } else if (drawState === 2) {
+    wetDrawing(winMouseX, winMouseY, pwinMouseX, pwinMouseY);
+  }
 
 
 
-return false;
+  return false;
 }
 
 
-function makeDrawing(_x, _y, pX, pY){
+function makeDrawing(_x, _y, pX, pY) {
   drawLayer.strokeWeight(constrain(abs((_y + _x) - (pX + pY)), 5, 10)); // for line work
-    drawLayer.stroke(getCol);
+  drawLayer.stroke(getCol);
   drawLayer.line(_x, _y, pX, pY);
 }
 
-function wetDrawing(_x, _y, pX, pY){
-//  colTemp = drawLayer.get(_x, _y);
-let _r, _g, _b, _a;
+function wetDrawing(_x, _y, pX, pY) {
+  //  colTemp = drawLayer.get(_x, _y);
+  let _r, _g, _b, _a;
 
 
   drawLayer.loadPixels();
 
-  for (i = -5; i < 5; i++){
-  let off = ((winMouseY+i) * width + (winMouseX+i)) * 1 * 4;
-  _r = drawLayer.pixels[off];
-  _g = drawLayer.pixels[off + 1];
-  _b = drawLayer.pixels[off + 2];
-  _a = drawLayer.pixels[off + 3]*0.1;
+  for (i = -5; i < 5; i++) {
+    let off = ((winMouseY + i) * width + (winMouseX + i)) * 1 * 4;
+    _r = drawLayer.pixels[off];
+    _g = drawLayer.pixels[off + 1];
+    _b = drawLayer.pixels[off + 2];
+    _a = drawLayer.pixels[off + 3] * 0.1;
 
-    if (_a > 1) {break ;}
+    if (_a > 1) {
+      break;
+    }
   }
 
 
-  drawLayer.stroke(_r,_g,_b,_a);
+  drawLayer.stroke(_r, _g, _b, _a);
   drawLayer.strokeWeight(constrain(abs((_y + _x) - (pX + pY)), 30, 50)); // for line work
-    drawLayer.line(_x, _y, pX, pY);
+  drawLayer.line(_x, _y, pX, pY);
 }
 
 
 function draw() {
-  image(bg, 0, 0, width, height);
+
+  if (introState === 3) {
+    image(bg, 0, 0, width, height);
     image(leafLayer, 0, 0, width, height);
-  image(drawLayer, 0, 0, width, height);
-  image(uiLayer, 0, 0, width, height);
+    image(drawLayer, 0, 0, width, height);
+    image(uiLayer, 0, 0, width, height);
+  }
 
 }
