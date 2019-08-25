@@ -131,7 +131,7 @@ function touchMoved() {
     leafLayer.rotate(rot);
     leafLayer.translate(0, -height / 10);
     leafLayer.tint(255, 10);
-    leafLayer.image(leaf[leafSelector], 0, 0, longEdge / 1.75, longEdge / 1.75);
+    leafLayer.image(leaf[leafSelector], 0, 0, longEdge / 1.65, longEdge / 1.65);
     leafLayer.pop();
 
 
@@ -164,7 +164,7 @@ function wetDrawing(_x, _y, pX, pY) {
     _r = drawLayer.pixels[off];
     _g = drawLayer.pixels[off + 1];
     _b = drawLayer.pixels[off + 2];
-    _a = drawLayer.pixels[off + 3] * 0.2;
+    _a = drawLayer.pixels[off + 3] * 0.1;
 
   drawLayer.stroke(_r, _g, _b, _a);
   drawLayer.strokeWeight(25); // for line work
