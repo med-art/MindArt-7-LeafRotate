@@ -82,7 +82,7 @@ function touchStarted() {
 
     slide = 1;
     slideShow();
-    //audio.loop(7);
+    audio.loop();
     introState = 1;
   } else if (introState === 2) {
     textLayer.clear();
