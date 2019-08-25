@@ -31,6 +31,8 @@ let drawState = 0;
 
 let colTemp;
 
+let getCol = "#EF3340";
+
 let leafSelector = 0;
 
 function preload() {
@@ -81,24 +83,20 @@ function dimensionCalc() {
 function touchStarted(){
 
 
-    drawLayer.stroke(0,0,0,0);
-
+  drawLayer.stroke(0,0,0,0);
   rotStart = atan2(mouseY - height / 2, mouseX - width / 2);
 
-    if (mouseX < rectWidth/2) {
-      if (mouseY < rectWidth) {
-        colChoice = 0;
-      } else if (mouseY > rectWidth && mouseY < rectWidth * 2) {
-            colChoice = 1;
-      } else if (mouseY > rectWidth * 2 && mouseY < rectWidth * 3) {
-            colChoice = 2;
-      } else if (mouseY > rectWidth * 3 && mouseY < rectWidth * 4) {
-            colChoice = 3;
-      } else if (mouseY > rectWidth * 4) {
-         colChoice = 4;
-      }
+if (width <= height && mouseY > (height-rectWidth/2)){
+getCol = uiLayer.get(winMouseX, winMouseY);
+}
+
+else if (width > height && mouseX < rectWidth/2){
+getCol = uiLayer.get(winMouseX, winMouseY);
+}
+
+
+
       return false;
-  }
 }
 
 
@@ -141,7 +139,7 @@ return false;
 
 function makeDrawing(_x, _y, pX, pY){
   drawLayer.strokeWeight(constrain(abs((_y + _x) - (pX + pY)), 5, 15)); // for line work
-    drawLayer.stroke(hexColours[colChoice]);
+    drawLayer.stroke(getCol);
   drawLayer.line(_x, _y, pX, pY);
 }
 
