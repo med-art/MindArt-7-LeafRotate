@@ -79,12 +79,13 @@ function mousePressed() {
 
 
   if (introState === 0) {
-    audio.loop(7);
+
     slide = 1;
     slideShow();
     introState = 1;
 
   } else if (introState === 2) {
+      audio.loop(7);
     textLayer.clear();
     introState = 3;
     writeTextUI();
