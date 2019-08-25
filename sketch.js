@@ -110,7 +110,7 @@ function touchStarted() {
 
   }
 
-  return false;
+//  return false;
 }
 
 
@@ -143,7 +143,7 @@ function touchMoved() {
 
 
 
-  //return false;
+  return false;
 }
 
 
