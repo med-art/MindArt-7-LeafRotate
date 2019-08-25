@@ -90,7 +90,7 @@ if (width <= height && mouseY > (height-rectWidth/2)){
 getCol = uiLayer.get(winMouseX, winMouseY);
 }
 
-else if (width > height && mouseX < rectWidth/2){
+if (width > height && mouseX < rectWidth/2){
 getCol = uiLayer.get(winMouseX, winMouseY);
 }
 
