@@ -115,9 +115,9 @@ function touchMoved() {
     rotStart = rotEnd;
 
   leafLayer.rotate(rot);
-  leafLayer.translate(0,-height/6)
+  leafLayer.translate(0,-height/10);
   leafLayer.tint(255,10);
-  leafLayer.image(leaf[leafSelector], 0, 0, width / 2.5, width / 2.5);
+  leafLayer.image(leaf[leafSelector], 0, 0, width / 2, width / 2);
   leafLayer.pop();
 
 
