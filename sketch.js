@@ -75,11 +75,11 @@ function dimensionCalc() {
 
 }
 
-function touchStarted() {
+function mousePressed() {
 
 
   if (introState === 0) {
-  audio.loop();
+    audio.loop(7000);
     slide = 1;
     slideShow();
 
