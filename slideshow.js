@@ -1,6 +1,6 @@
 let introText = ["Touch to Begin", "Look", "Listen", "Touch"];
 let slide = 0;
-let delayTime = 70;
+let delayTime = 7000;
 let introState = 0; // 3 way state. State 0 is intro begun, state 1 is intro over and waiting for input, state 2 is active painting
 let c1, c2;
 
