@@ -78,41 +78,36 @@ function dimensionCalc() {
 function touchStarted() {
 
 
-if(introState === 0){
+  if (introState === 0) {
 
-  slide = 1;
-  slideShow();
-  audio.loop(7);
+    slide = 1;
+    slideShow();
+    audio.loop(7);
     introState = 1;
-}
+  } else if (introState === 2) {
+    textLayer.clear();
+    introState = 3;
+    writeTextUI();
+    makeSwatch();
+    noTint();
+    image(bg, 0, 0, width, height);
+    rot = 0;
+    touchMoved();
+  } else if (introState === 3) {
 
-else if(introState === 2){
-  textLayer.clear();
-  introState = 3;
-  writeTextUI();
-  makeSwatch();
-  noTint();
-  image(bg, 0, 0, width, height);
-  rot = 0;
-  touchMoved();
-}
+    drawLayer.stroke(0, 0, 0, 0);
+    rotStart = atan2(mouseY - height / 2, mouseX - width / 2);
+
+    if (width <= height && mouseY > (height - rectWidth / 2)) {
+      getCol = uiLayer.get(winMouseX, winMouseY);
+    }
+
+    if (width > height && mouseX < rectWidth / 2) {
+      getCol = uiLayer.get(winMouseX, winMouseY);
+    }
 
 
-else if (introState === 3){
-
-  drawLayer.stroke(0, 0, 0, 0);
-  rotStart = atan2(mouseY - height / 2, mouseX - width / 2);
-
-  if (width <= height && mouseY > (height - rectWidth / 2)) {
-    getCol = uiLayer.get(winMouseX, winMouseY);
   }
-
-  if (width > height && mouseX < rectWidth / 2) {
-    getCol = uiLayer.get(winMouseX, winMouseY);
-  }
-
-
-}
 
 
 
@@ -161,43 +156,23 @@ function makeDrawing(_x, _y, pX, pY) {
 
 function wetDrawing(_x, _y, pX, pY) {
   //  colTemp = drawLayer.get(_x, _y);
-  let _r, _g, _b, _a, breaker;
+  let _r, _g, _b, _a;
 
+  let off = (winMouseY * width + winMouseX) * 1 * 4;
 
-  drawLayer.loadPixels();
+    _r = drawLayer.pixels[off];
+    _g = drawLayer.pixels[off + 1];
+    _b = drawLayer.pixels[off + 2];
+    _a = drawLayer.pixels[off + 3] * 0.025;
 
-  for (i = -2; i < 2; i++) {
-      for (j = -2; j < 2; j++) {
-
-    let off = ((winMouseY + i) * width + (winMouseX + j)) * 1 * 4;
-
-    _a = drawLayer.pixels[off + 3] * 0.1;
-
-    if (_a > 0.5) {
-      _r = drawLayer.pixels[off];
-      _g = drawLayer.pixels[off + 1];
-      _b = drawLayer.pixels[off + 2];
-      breaker = 1;
-      break;
-    }
-
-    else {
-      _r = 0;
-      _g = 0;
-      _b = 0;
-    }
-
-    if (breaker){
-      break;
-    }
-  }
-
-  }
-
-
+if (_a > 1){
   drawLayer.stroke(_r, _g, _b, _a);
   drawLayer.strokeWeight(constrain(abs((_y + _x) - (pX + pY)), 30, 50)); // for line work
   drawLayer.line(_x, _y, pX, pY);
+  drawLayer.loadPixels(); // relocated here in effor to optimise
+}
+
+
 }
 
 
