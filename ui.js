@@ -85,6 +85,7 @@ function paintImg() {
   button2.class('deselect');
   button3.class('select');
   drawState = 2;
+    drawLayer.loadPixels();
 }
 
 

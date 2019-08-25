@@ -166,8 +166,8 @@ function wetDrawing(_x, _y, pX, pY) {
 
   drawLayer.loadPixels();
 
-  for (i = -3; i < 3; i++) {
-      for (j = -3; j < 3; j++) {
+  for (i = -2; i < 2; i++) {
+      for (j = -2; j < 2; j++) {
 
     let off = ((winMouseY + i) * width + (winMouseX + j)) * 1 * 4;
 
