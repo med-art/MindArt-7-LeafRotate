@@ -167,7 +167,7 @@ function wetDrawing(_x, _y, pX, pY) {
     drawLayer.stroke(_r, _g, _b, 10);
     drawLayer.strokeWeight(25); // for line work
     drawLayer.line(_x, _y, pX, pY);
-    drawLa  yer.loadPixels(); // relocated here in effor to optimise
+    drawLayer.loadPixels(); // relocated here in effor to optimise
 
   }
 
