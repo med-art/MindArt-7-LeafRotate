@@ -132,7 +132,7 @@ else if (drawState === 2){
 
 
 
-
+return false;
 }
 
 
