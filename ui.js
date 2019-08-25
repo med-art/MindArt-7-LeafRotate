@@ -55,12 +55,12 @@ function writeTextUI() {
 else if (width <= height) {
 
     rectWidth = width / 5;
-    button2.position(1*lmax, windowHeight - lmax * 15);
-    button3.position(13 * lmax, windowHeight - lmax * 15);
-    button1.position(25 * lmax, windowHeight - lmax * 15);
+    button2.position(0, windowHeight - rectWidth/2 - (4*lmax));
+    button3.position(12 * lmax, windowHeight -  rectWidth/2- (4*lmax));
+    button1.position(24 * lmax, windowHeight -  rectWidth/2- (4*lmax));
 
-    button4.position(windowWidth - (28 * lmax) - (lmax * 1.5), windowHeight - lmax * 15);
-    button5.position(windowWidth - (18 * lmax) - (lmax * 1.5), windowHeight - lmax * 15);
+    button4.position(windowWidth - (28 * lmax) - (lmax * 1.5), windowHeight - rectWidth/2 - (4*lmax));
+    button5.position(windowWidth - (18 * lmax) - (lmax * 1.5), windowHeight - rectWidth/2 - (4*lmax));
   }
 
 }
