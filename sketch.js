@@ -82,7 +82,6 @@ function mousePressed() {
     audio.loop(7);
     slide = 1;
     slideShow();
-
     introState = 1;
   } else if (introState === 2) {
     textLayer.clear();
