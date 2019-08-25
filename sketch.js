@@ -166,37 +166,25 @@ function wetDrawing(_x, _y, pX, pY) {
 
   drawLayer.loadPixels();
 
-  for (i = 0; i < 5; i++) {
-      for (j = 0; j < 5; j++) {
+  for (i = -3; i < 3; i++) {
+      for (j = -3; j < 3; j++) {
 
     let off = ((winMouseY + i) * width + (winMouseX + j)) * 1 * 4;
-    let off2 = ((winMouseY + i) * width + (winMouseX - j)) * 1 * 4;
-    let off3 = ((winMouseY - i) * width + (winMouseX + j)) * 1 * 4;
-    let off4 = ((winMouseY - i) * width + (winMouseX - j)) * 1 * 4;
 
-    _r = drawLayer.pixels[off];
-    _g = drawLayer.pixels[off + 1];
-    _b = drawLayer.pixels[off + 2];
     _a = drawLayer.pixels[off + 3] * 0.1;
 
-    _r = drawLayer.pixels[off2];
-    _g = drawLayer.pixels[off2 + 1];
-    _b = drawLayer.pixels[off2 + 2];
-    _a = drawLayer.pixels[off2 + 3] * 0.1;
-
-    _r = drawLayer.pixels[off3];
-    _g = drawLayer.pixels[off3 + 1];
-    _b = drawLayer.pixels[off3 + 2];
-    _a = drawLayer.pixels[off3 + 3] * 0.1;
-
-    _r = drawLayer.pixels[off4];
-    _g = drawLayer.pixels[off4 + 1];
-    _b = drawLayer.pixels[off4 + 2];
-    _a = drawLayer.pixels[off4 + 3] * 0.1;
-
-    if (_a > 1) {
+    if (_a > 0.5) {
+      _r = drawLayer.pixels[off];
+      _g = drawLayer.pixels[off + 1];
+      _b = drawLayer.pixels[off + 2];
       breaker = 1;
       break;
+    }
+
+    else {
+      _r = 0;
+      _g = 0;
+      _b = 0;
     }
 
     if (breaker){
