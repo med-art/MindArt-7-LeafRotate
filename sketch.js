@@ -143,7 +143,7 @@ function touchMoved() {
 
 
 
-  return false;
+  //return false;
 }
 
 
