@@ -47,6 +47,7 @@ function setup() {
   pixelDensity(1); // Ignores retina displays
   leafLayer = createGraphics(width, height);
   drawLayer = createGraphics(width, height);
+    drawLayer2 = createGraphics(width, height);
   uiLayer = createGraphics(width, height);
   textLayer = createGraphics(width, height);
   colorMode(HSB, 360, 100, 100, 100);
@@ -54,6 +55,9 @@ function setup() {
   drawLayer.colorMode(RGB, 255, 255, 255, 100);
   drawLayer.stroke(0, 0, 0, 0);
   drawLayer.fill(0,0,0,0);
+  drawLayer2.colorMode(RGB, 255, 255, 255, 100);
+  drawLayer2.stroke(0, 0, 0, 0);
+  drawLayer2.fill(0,0,0,0);
   //drawLayer.blendMode(REPLACE);
   dimensionCalc();
   //showIntro();
@@ -121,6 +125,8 @@ function mousePressed() {
 function mouseReleased(){
   drawLayer.stroke(0, 0, 0, 0);
   drawLayer.fill(0,0,0,0);
+  drawLayer2.stroke(0, 0, 0, 0);
+  drawLayer2.fill(0,0,0,0);
 }
 
 
@@ -161,7 +167,11 @@ function makeDrawing(_x, _y, pX, pY) {
   drawLayer.strokeWeight(constrain(abs((_y + _x) - (pX + pY)), 5, 10)); // for line work
   drawLayer.stroke(getCol);
   drawLayer.line(_x, _y, pX, pY);
+  drawLayer2.strokeWeight(constrain(abs((_y + _x) - (pX + pY)), 20, 30)); // for line work
+  drawLayer2.stroke(getCol);
+  drawLayer2.line(_x, _y, pX, pY);
 }
+
 
 function wetDrawing(_x, _y, pX, pY) {
   //  colTemp = drawLayer.get(_x, _y);
@@ -169,18 +179,20 @@ function wetDrawing(_x, _y, pX, pY) {
 
   let off = (winMouseY * width + winMouseX) * 1 * 4;
 
-    _r = drawLayer.pixels[off];
-    _g = drawLayer.pixels[off + 1];
-    _b = drawLayer.pixels[off + 2];
-    _a = drawLayer.pixels[off + 3] * 0.1;
+    _r = drawLayer2.pixels[off];
+    _g = drawLayer2.pixels[off + 1];
+    _b = drawLayer2.pixels[off + 2];
+    _a = drawLayer2.pixels[off + 3] * 0.1;
 
   // drawLayer.stroke(_r, _g, _b, _a);
   // drawLayer.strokeWeight(25); // for line work
   drawLayer.fill(_r, _g, _b, _a);
   drawLayer.circle(_x, _y, 40, 40);
+  drawLayer2.fill(_r, _g, _b, _a);
+  drawLayer2.circle(_x, _y, 40, 40);
   // drawLayer.line(_x, _y, pX, pY);
   drawLayer.loadPixels(); // relocated here in effor to optimise
-
+  drawLayer2.loadPixels(); // relocated here in effor to optimise
 
 }
 
