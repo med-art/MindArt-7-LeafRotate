@@ -94,20 +94,26 @@ function writeScaleUI() {
   fill(0);
   noStroke();
 
-  button7 = createButton('Scale');
+
+  button7 = createButton('Smaller');
   button7.class('deselect');
   button7.mousePressed(scaleLeaf);
+  button8 = createButton('Bigger');
+  button8.class('deselect');
+  button8.mousePressed(scaleLeaf);
 
   if (width > height) {
 
     rectWidth = height / 6;
 
-    button7.position((rectWidth / 2), lmax * 10.5);
+    button7.position((rectWidth / 2), lmax * 17.5);
+    button8.position((rectWidth / 2), lmax * 14);
 
 
   } else if (width <= height) {
 
-    button7.position(24 * lmax, windowHeight - rectWidth / 2 - (8 * lmax));
+    button7.position(12 * lmax, windowHeight - rectWidth / 2 - (8 * lmax));
+    button8.position(24 * lmax, windowHeight - rectWidth / 2 - (8 * lmax));
 
   }
 }
@@ -129,6 +135,7 @@ function rotateImg() {
   button1.class('select');
   button2.class('deselect');
   button3.class('deselect');
+    button3.class('deselect');
   drawState = 0;
 }
 
