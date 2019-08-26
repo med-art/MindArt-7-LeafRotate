@@ -101,20 +101,15 @@ function mousePressed() {
     image(bg, 0, 0, width, height);
     rot = 0;
     touchMoved();
+
   } else if (introState === 3) {
-
-
     rotStart = atan2(mouseY - height / 2, mouseX - width / 2);
-
     if (width <= height && mouseY > (height - rectWidth / 2)) {
       getCol = uiLayer.get(winMouseX, winMouseY);
     }
-
     if (width > height && mouseX < rectWidth / 2) {
       getCol = uiLayer.get(winMouseX, winMouseY);
     }
-
-
   }
 
 
@@ -154,7 +149,7 @@ function touchMoved() {
     makeDrawing(winMouseX, winMouseY, pwinMouseX, pwinMouseY);
 
   } else if (drawState === 2) {
-    wetDrawing(winMouseX, winMouseY, pwinMouseX, pwinMouseY);
+    wetDrawing(winMouseX, winMouseY);
   }
 
 
@@ -187,9 +182,9 @@ function wetDrawing(_x, _y, pX, pY) {
   // drawLayer.stroke(_r, _g, _b, _a);
   // drawLayer.strokeWeight(25); // for line work
   drawLayer.fill(_r, _g, _b, _a);
-  drawLayer.circle(_x, _y, 30, 40);
+  drawLayer.circle(_x, _y, 40, 40);
   drawLayer2.fill(_r, _g, _b, _a);
-  drawLayer2.circle(_x, _y, 30, 40);
+  drawLayer2.circle(_x, _y, 40, 40);
   // drawLayer.line(_x, _y, pX, pY);
   drawLayer.loadPixels(); // relocated here in effor to optimise
   drawLayer2.loadPixels(); // relocated here in effor to optimise
