@@ -158,7 +158,7 @@ function touchMoved() {
 
 
 function makeDrawing(_x, _y, pX, pY) {
-  drawLayer.strokeWeight(constrain(abs((_y + _x) - (pX + pY)), 5, 10)); // for line work
+  drawLayer.strokeWeight(constrain(abs((_y + _x) - (pX + pY)), 40, 50)); // for line work
   drawLayer.stroke(getCol);
   drawLayer.line(_x, _y, pX, pY);
 }
@@ -177,7 +177,7 @@ function wetDrawing(_x, _y, pX, pY) {
   // drawLayer.stroke(_r, _g, _b, _a);
   // drawLayer.strokeWeight(25); // for line work
   drawLayer.fill(_r, _g, _b, _a);
-  drawLayer.circle(_x, _y, 60, 60);
+  drawLayer.circle(_x, _y, 40, 40);
   // drawLayer.line(_x, _y, pX, pY);
   drawLayer.loadPixels(); // relocated here in effor to optimise
 
