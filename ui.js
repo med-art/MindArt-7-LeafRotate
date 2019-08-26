@@ -93,6 +93,7 @@ function paintImg() {
 
 function restart() {
   drawLayer.clear();
+    drawLayer2.clear();
   leafSelector = int(random(0, 13));
   rot = 0;
   drawState = 0;
