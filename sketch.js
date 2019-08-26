@@ -206,7 +206,7 @@ function mousePressed() {
     drawLayer.strokeWeight(constrain(abs((_y + _x) - (pX + pY)), 3.5, 8)); // for line work
     drawLayer.stroke(getCol);
     drawLayer.line(_x, _y, pX, pY);
-    drawLayer2.strokeWeight(constrain(abs((_y + _x) - (pX + pY)), 20, 40)); // for line work
+    drawLayer2.strokeWeight(constrain(abs((_y + _x) - (pX + pY)), 40, 110)); // for line work
     drawLayer2.stroke(getCol);
     drawLayer2.line(_x, _y, pX, pY);
   }
