@@ -9,6 +9,8 @@ let interrupt = 0;
 let brushColours = [239, 51, 64, 168, 199, 0, 255, 215, 0, 241, 230, 178, 0, 107, 56];
 let hexColours = ["#EF3340", "#A8C700", "#FFD700", "#FA6122", "#007236", "#4C6A90"]
 
+let leafCount = 0;
+
 function writeTextUI() {
 
   colH2 = color(130, 0, 20);
@@ -137,6 +139,7 @@ function biggerLeaf() {
 
 function leafChooser() {
 
+  leafCounter = 0;
   leafChoice.noTint();
 
   c2 = color("#FA6122");
@@ -154,13 +157,20 @@ function leafChooser() {
 
 for (let i = 0; i < 3; i++){
 for (let j = 0; j < 4; j++){
-  leafChoice.image(leaf[i+j], i*(width/3), j*(height/4), width/4, width/4);
+
+  leafChoice.image(leaf[leafCounter], i*(width/3), j*(height/4), width/4, width/4);
+  leafCounter++;
 }
 }
 
 
 image(leafChoice, 0, 0, width, height);
-interrupt = 1;
+setTimeout(interruptor, 100);
+}
+
+
+function interruptor(){
+  interrupt = 1;
 }
 
 function rotateImg() {

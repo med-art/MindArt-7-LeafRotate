@@ -87,7 +87,28 @@ function dimensionCalc() {
 function mousePressed() {
 
 
-  if (introState === 0) {
+  if (interrupt === 1){
+    console.log("yes");
+    leafCounter = 0;
+
+    for (let i = 0; i < 3; i++){
+    for (let j = 0; j < 4; j++){
+
+      if (dist((i*(width/3))+width/4, (j*(height/4))+width/4, winMouseX, winMouseY) < width/4){
+        console.log(leafCounter);
+        leafSelector = leafCounter;
+        interrupt = 0;
+        rotateLeaf();
+
+      }
+
+      leafCounter++;
+    }
+    }
+
+  }
+
+  else if (introState === 0) {
     audio.loop(7);
     slide = 1;
     slideShow();
@@ -166,7 +187,7 @@ function rotateLeaf(){
 }
 
 function makeDrawing(_x, _y, pX, pY) {
-  drawLayer.strokeWeight(constrain(abs((_y + _x) - (pX + pY)), 5, 10)); // for line work
+  drawLayer.strokeWeight(constrain(abs((_y + _x) - (pX + pY)), 3.5, 8)); // for line work
   drawLayer.stroke(getCol);
   drawLayer.line(_x, _y, pX, pY);
   drawLayer2.strokeWeight(constrain(abs((_y + _x) - (pX + pY)), 20, 40)); // for line work
