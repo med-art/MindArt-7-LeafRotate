@@ -167,7 +167,7 @@ function makeDrawing(_x, _y, pX, pY) {
   drawLayer.strokeWeight(constrain(abs((_y + _x) - (pX + pY)), 5, 10)); // for line work
   drawLayer.stroke(getCol);
   drawLayer.line(_x, _y, pX, pY);
-  drawLayer2.strokeWeight(constrain(abs((_y + _x) - (pX + pY)), 50, 100)); // for line work
+  drawLayer2.strokeWeight(constrain(abs((_y + _x) - (pX + pY)), 80, 100)); // for line work
   drawLayer2.stroke(getCol);
   drawLayer2.line(_x, _y, pX, pY);
 }
@@ -202,7 +202,7 @@ function draw() {
   if (introState === 3) {
     image(bg, 0, 0, width, height);
     image(leafLayer, 0, 0, width, height);
-    image(drawLayer, 0, 0, width, height);
+    image(drawLayer2, 0, 0, width, height);
     image(uiLayer, 0, 0, width, height);
   }
 
