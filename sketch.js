@@ -56,6 +56,7 @@ function setup() {
   dimensionCalc();
   //showIntro();
   slideShow();
+  frameRate(400);
 }
 
 function dimensionCalc() {
