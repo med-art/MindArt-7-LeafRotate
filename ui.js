@@ -3,6 +3,8 @@ let colH1, colH2, colH3;
 let rectWidth;
 let colChoice = 0;
 let counter = 0;
+let scalar = 1.0;
+let interrupt = 0;
 
 let brushColours = [239, 51, 64, 168, 199, 0, 255, 215, 0, 241, 230, 178, 0, 107, 56];
 let hexColours = ["#EF3340", "#A8C700", "#FFD700", "#FA6122", "#007236", "#4C6A90"]
@@ -71,7 +73,7 @@ function writeStageUI() {
 
   button6 = createButton('New leaf');
   button6.class('restart');
-  button6.mousePressed(chooseLeaf);
+  button6.mousePressed(leafChooser);
 
   if (width > height) {
 
@@ -97,10 +99,10 @@ function writeScaleUI() {
 
   button7 = createButton('Smaller');
   button7.class('deselect');
-  button7.mousePressed(scaleLeaf);
+  button7.mousePressed(smallerLeaf);
   button8 = createButton('Bigger');
   button8.class('deselect');
-  button8.mousePressed(scaleLeaf);
+  button8.mousePressed(biggerLeaf);
 
   if (width > height) {
 
@@ -119,23 +121,53 @@ function writeScaleUI() {
 }
 
 
-function chooseLeaf() {
-  leafSelector = int(random(0, 13));
-  touchMoved();
-  rotateImg();
-}
-
-function scaleLeaf() {
+function smallerLeaf() {
+  scalar = scalar * 0.95;
+  rotateLeaf();
 
 }
 
+function biggerLeaf() {
+  scalar = scalar * 1.05;
+  rotateLeaf();
 
+
+}
+
+
+function leafChooser() {
+
+  leafChoice.noTint();
+
+  c2 = color("#FA6122");
+  c1 = color("#faa27d");
+
+  noFill();
+  for (var y = 0; y < height; y++) {
+    var inter = map(y, 0, height, 0, 1);
+    var c = lerpColor(c1, c2, inter);
+    leafChoice.stroke(c);
+    leafChoice.line(0, y, width, y);
+  }
+
+
+
+for (let i = 0; i < 3; i++){
+for (let j = 0; j < 4; j++){
+  leafChoice.image(leaf[i+j], i*(width/3), j*(height/4), width/4, width/4);
+}
+}
+
+
+image(leafChoice, 0, 0, width, height);
+interrupt = 1;
+}
 
 function rotateImg() {
   button1.class('select');
   button2.class('deselect');
   button3.class('deselect');
-    button3.class('deselect');
+  button3.class('deselect');
   drawState = 0;
 }
 
@@ -167,6 +199,10 @@ function restart() {
   }
   drawLayer.clear();
   drawLayer2.clear();
+  drawLayer.fill(255);
+  drawLayer2.fill(255);
+  drawLayer.rect(0,0, width, height);
+  drawLayer2.rect(0,0, width, height);
   leafSelector = int(random(0, 13));
   rot = 0;
   drawState = 0;

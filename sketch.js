@@ -50,6 +50,7 @@ function setup() {
     drawLayer2 = createGraphics(width, height);
   uiLayer = createGraphics(width, height);
   textLayer = createGraphics(width, height);
+  leafChoice = createGraphics(width, height);
   colorMode(HSB, 360, 100, 100, 100);
   leafLayer.colorMode(HSB, 360, 100, 100, 100);
   drawLayer.colorMode(RGB, 255, 255, 255, 100);
@@ -63,6 +64,7 @@ function setup() {
   //showIntro();
   slideShow();
   frameRate(400);
+
 }
 
 function dimensionCalc() {
@@ -101,6 +103,7 @@ function mousePressed() {
     image(bg, 0, 0, width, height);
     rot = 0;
     touchMoved();
+    restart();
 
   } else if (introState === 3) {
     rotStart = atan2(mouseY - height / 2, mouseX - width / 2);
@@ -128,21 +131,7 @@ function mouseReleased(){
 function touchMoved() {
 
   if (drawState === 0) {
-
-    leafLayer.push();
-    leafLayer.clear();
-    leafLayer.imageMode(CENTER);
-    leafLayer.translate(width / 2, height / 2);
-    rotEnd = atan2(mouseY - height / 2, mouseX - width / 2);
-    rot = rot + (rotEnd - rotStart);
-    rotStart = rotEnd;
-
-    leafLayer.rotate(rot);
-    leafLayer.translate(0, -height / 10);
-    leafLayer.tint(255, 10);
-    leafLayer.image(leaf[leafSelector], 0, 0, shortEdge / 1.15, shortEdge / 1.15);
-    leafLayer.pop();
-
+rotateLeaf();
 
 
   } else if (drawState === 1) {
@@ -157,6 +146,24 @@ function touchMoved() {
   return false;
 }
 
+
+function rotateLeaf(){
+
+      leafLayer.push();
+      leafLayer.clear();
+      leafLayer.imageMode(CENTER);
+      leafLayer.translate(width / 2, height / 2);
+      rotEnd = atan2(mouseY - height / 2, mouseX - width / 2);
+      rot = rot + (rotEnd - rotStart);
+      rotStart = rotEnd;
+
+      leafLayer.rotate(rot);
+      leafLayer.translate(0, -height / 10);
+      leafLayer.tint(255, 10);
+      leafLayer.image(leaf[leafSelector], 0, 0, (shortEdge / 1.15)*scalar, (shortEdge / 1.15)*scalar);
+      leafLayer.pop();
+
+}
 
 function makeDrawing(_x, _y, pX, pY) {
   drawLayer.strokeWeight(constrain(abs((_y + _x) - (pX + pY)), 5, 10)); // for line work
@@ -195,10 +202,18 @@ function wetDrawing(_x, _y) {
 function draw() {
 
   if (introState === 3) {
+    if (interrupt){
+            image(bg, 0, 0, width, height);
+      image(leafChoice, 0, 0, width, height);
+    }
+    else{
     image(bg, 0, 0, width, height);
     image(leafLayer, 0, 0, width, height);
+    blendMode(DARKEST);
     image(drawLayer, 0, 0, width, height);
+    blendMode(BLEND);
     image(uiLayer, 0, 0, width, height);
   }
+}
 
 }
