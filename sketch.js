@@ -162,6 +162,7 @@ function wetDrawing(_x, _y, pX, pY) {
   _r = drawLayer.pixels[off] * 1.01;
   _g = drawLayer.pixels[off + 1] * 1.01
   _b = drawLayer.pixels[off + 2] * 1.01;
+    _a = drawLayer.pixels[off + 3] * 1.01;
 
   if (_a > 0) {
     drawLayer.stroke(_r, _g, _b, 10);
