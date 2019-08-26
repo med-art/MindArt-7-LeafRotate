@@ -52,6 +52,8 @@ function setup() {
   colorMode(HSB, 360, 100, 100, 100);
   leafLayer.colorMode(HSB, 360, 100, 100, 100);
   drawLayer.colorMode(RGB, 255, 255, 255, 100);
+  drawLayer.stroke(0, 0, 0, 0);
+  drawLayer.fill(0,0,0,0);
   //drawLayer.blendMode(REPLACE);
   dimensionCalc();
   //showIntro();
@@ -97,7 +99,7 @@ function mousePressed() {
     touchMoved();
   } else if (introState === 3) {
 
-    drawLayer.stroke(0, 0, 0, 0);
+
     rotStart = atan2(mouseY - height / 2, mouseX - width / 2);
 
     if (width <= height && mouseY > (height - rectWidth / 2)) {
@@ -114,6 +116,11 @@ function mousePressed() {
 
 
   //  return false;
+}
+
+function mouseReleased(){
+  drawLayer.stroke(0, 0, 0, 0);
+  drawLayer.fill(0,0,0,0);
 }
 
 
