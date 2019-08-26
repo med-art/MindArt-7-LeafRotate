@@ -154,14 +154,26 @@ function leafChooser() {
   }
 
 
+if (width < height){
+  for (let i = 0; i < 3; i++){
+  for (let j = 0; j < 4; j++){
 
-for (let i = 0; i < 3; i++){
-for (let j = 0; j < 4; j++){
+    leafChoice.image(leaf[leafCounter], i*(width/3), j*(height/4), shortEdge/4, shortEdge/4);
+    leafCounter++;
+  }
+  }
+}
 
-  leafChoice.image(leaf[leafCounter], i*(width/3), j*(height/4), width/4, width/4);
-  leafCounter++;
+if (width >= height){
+  for (let i = 0; i < 4; i++){
+  for (let j = 0; j < 3; j++){
+
+    leafChoice.image(leaf[leafCounter], i*(width/4), j*(height/3), shortEdge/4, shortEdge/4);
+    leafCounter++;
+  }
+  }
 }
-}
+
 
 
 image(leafChoice, 0, 0, width, height);

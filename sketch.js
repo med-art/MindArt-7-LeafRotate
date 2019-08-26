@@ -47,7 +47,7 @@ function setup() {
   pixelDensity(1); // Ignores retina displays
   leafLayer = createGraphics(width, height);
   drawLayer = createGraphics(width, height);
-    drawLayer2 = createGraphics(width, height);
+  drawLayer2 = createGraphics(width, height);
   uiLayer = createGraphics(width, height);
   textLayer = createGraphics(width, height);
   leafChoice = createGraphics(width, height);
@@ -55,10 +55,10 @@ function setup() {
   leafLayer.colorMode(HSB, 360, 100, 100, 100);
   drawLayer.colorMode(RGB, 255, 255, 255, 100);
   drawLayer.stroke(0, 0, 0, 0);
-  drawLayer.fill(0,0,0,0);
+  drawLayer.fill(0, 0, 0, 0);
   drawLayer2.colorMode(RGB, 255, 255, 255, 100);
   drawLayer2.stroke(0, 0, 0, 0);
-  drawLayer2.fill(0,0,0,0);
+  drawLayer2.fill(0, 0, 0, 0);
   //drawLayer.blendMode(REPLACE);
   dimensionCalc();
   //showIntro();
@@ -87,154 +87,169 @@ function dimensionCalc() {
 function mousePressed() {
 
 
-  if (interrupt === 1){
+  if (interrupt === 1) {
     console.log("yes");
     leafCounter = 0;
 
-    for (let i = 0; i < 3; i++){
-    for (let j = 0; j < 4; j++){
 
-      if (dist((i*(width/3))+width/4, (j*(height/4))+width/4, winMouseX, winMouseY) < width/4){
-        console.log(leafCounter);
-        leafSelector = leafCounter;
-        interrupt = 0;
-        rotateLeaf();
 
+    if (width < height) {
+      for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 4; j++) {
+          if (dist((i * (width / 3)) + shortEdge / 4, (j * (height / 4)) + shortEdge / 4, winMouseX, winMouseY) < shortEdge / 4) {
+            console.log(leafCounter);
+            leafSelector = leafCounter;
+            interrupt = 0;
+            rotateLeaf();
+
+          }
+                      leafCounter++;
+        }
       }
-
-      leafCounter++;
-    }
     }
 
+      if (width >= height) {
+        for (let i = 0; i < 4; i++) {
+          for (let j = 0; j < 3; j++) {
+            if (dist((i * (width / 4)) + shortEdge / 4, (j * (height / 3)) + shortEdge / 4, winMouseX, winMouseY) < shortEdge / 4) {
+              console.log(leafCounter);
+              leafSelector = leafCounter;
+              interrupt = 0;
+              rotateLeaf();
+
+            }
+                  leafCounter++;
+          }
+        }
+      }
+        leafCounter++;
+      }
+     else if (introState === 0) {
+      audio.loop(7);
+      slide = 1;
+      slideShow();
+      introState = 1;
+
+    } else if (introState === 2) {
+
+      textLayer.clear();
+      introState = 3;
+      writeTextUI();
+      makeSwatch();
+      noTint();
+      image(bg, 0, 0, width, height);
+      rot = 0;
+      touchMoved();
+      restart();
+
+    } else if (introState === 3) {
+      rotStart = atan2(mouseY - height / 2, mouseX - width / 2);
+      if (width <= height && mouseY > (height - rectWidth / 2)) {
+        getCol = uiLayer.get(winMouseX, winMouseY);
+      }
+      if (width > height && mouseX < rectWidth / 2) {
+        getCol = uiLayer.get(winMouseX, winMouseY);
+      }
+    }
+
+
+
+    //  return false;
   }
 
-  else if (introState === 0) {
-    audio.loop(7);
-    slide = 1;
-    slideShow();
-    introState = 1;
-
-  } else if (introState === 2) {
-
-    textLayer.clear();
-    introState = 3;
-    writeTextUI();
-    makeSwatch();
-    noTint();
-    image(bg, 0, 0, width, height);
-    rot = 0;
-    touchMoved();
-    restart();
-
-  } else if (introState === 3) {
-    rotStart = atan2(mouseY - height / 2, mouseX - width / 2);
-    if (width <= height && mouseY > (height - rectWidth / 2)) {
-      getCol = uiLayer.get(winMouseX, winMouseY);
-    }
-    if (width > height && mouseX < rectWidth / 2) {
-      getCol = uiLayer.get(winMouseX, winMouseY);
-    }
-  }
-
-
-
-  //  return false;
-}
-
-function mouseReleased(){
-  drawLayer.stroke(0, 0, 0, 0);
-  drawLayer.fill(0,0,0,0);
-  drawLayer2.stroke(0, 0, 0, 0);
-  drawLayer2.fill(0,0,0,0);
-}
-
-
-function touchMoved() {
-
-  if (drawState === 0) {
-rotateLeaf();
-
-
-  } else if (drawState === 1) {
-    makeDrawing(winMouseX, winMouseY, pwinMouseX, pwinMouseY);
-
-  } else if (drawState === 2) {
-    wetDrawing(winMouseX, winMouseY);
+  function mouseReleased() {
+    drawLayer.stroke(0, 0, 0, 0);
+    drawLayer.fill(0, 0, 0, 0);
+    drawLayer2.stroke(0, 0, 0, 0);
+    drawLayer2.fill(0, 0, 0, 0);
   }
 
 
+  function touchMoved() {
 
-  return false;
-}
-
-
-function rotateLeaf(){
-
-      leafLayer.push();
-      leafLayer.clear();
-      leafLayer.imageMode(CENTER);
-      leafLayer.translate(width / 2, height / 2);
-      rotEnd = atan2(mouseY - height / 2, mouseX - width / 2);
-      rot = rot + (rotEnd - rotStart);
-      rotStart = rotEnd;
-
-      leafLayer.rotate(rot);
-      leafLayer.translate(0, -height / 10);
-      leafLayer.tint(255, 10);
-      leafLayer.image(leaf[leafSelector], 0, 0, (shortEdge / 1.15)*scalar, (shortEdge / 1.15)*scalar);
-      leafLayer.pop();
-
-}
-
-function makeDrawing(_x, _y, pX, pY) {
-  drawLayer.strokeWeight(constrain(abs((_y + _x) - (pX + pY)), 3.5, 8)); // for line work
-  drawLayer.stroke(getCol);
-  drawLayer.line(_x, _y, pX, pY);
-  drawLayer2.strokeWeight(constrain(abs((_y + _x) - (pX + pY)), 20, 40)); // for line work
-  drawLayer2.stroke(getCol);
-  drawLayer2.line(_x, _y, pX, pY);
-}
+    if (drawState === 0) {
+      rotateLeaf();
 
 
-function wetDrawing(_x, _y) {
+    } else if (drawState === 1) {
+      makeDrawing(winMouseX, winMouseY, pwinMouseX, pwinMouseY);
 
-  let _r = 0;
-  let _b = 0;
-  let _g = 0;
-  let _a = 0;
+    } else if (drawState === 2) {
+      wetDrawing(winMouseX, winMouseY);
+    }
 
-  let off = (winMouseY * width + winMouseX) * 1 * 4;
+
+
+    return false;
+  }
+
+
+  function rotateLeaf() {
+
+    leafLayer.push();
+    leafLayer.clear();
+    leafLayer.imageMode(CENTER);
+    leafLayer.translate(width / 2, height / 2);
+    rotEnd = atan2(mouseY - height / 2, mouseX - width / 2);
+    rot = rot + (rotEnd - rotStart);
+    rotStart = rotEnd;
+
+    leafLayer.rotate(rot);
+    leafLayer.translate(0, -height / 10);
+    leafLayer.tint(255, 10);
+    leafLayer.image(leaf[leafSelector], 0, 0, (shortEdge / 1.15) * scalar, (shortEdge / 1.15) * scalar);
+    leafLayer.pop();
+
+  }
+
+  function makeDrawing(_x, _y, pX, pY) {
+    drawLayer.strokeWeight(constrain(abs((_y + _x) - (pX + pY)), 3.5, 8)); // for line work
+    drawLayer.stroke(getCol);
+    drawLayer.line(_x, _y, pX, pY);
+    drawLayer2.strokeWeight(constrain(abs((_y + _x) - (pX + pY)), 20, 40)); // for line work
+    drawLayer2.stroke(getCol);
+    drawLayer2.line(_x, _y, pX, pY);
+  }
+
+
+  function wetDrawing(_x, _y) {
+
+    let _r = 0;
+    let _b = 0;
+    let _g = 0;
+    let _a = 0;
+
+    let off = (winMouseY * width + winMouseX) * 1 * 4;
     _r = drawLayer2.pixels[off];
     _g = drawLayer2.pixels[off + 1];
     _b = drawLayer2.pixels[off + 2];
     _a = drawLayer2.pixels[off + 3] * 0.1;
 
 
-  drawLayer.fill(_r, _g, _b, _a);
-  drawLayer.circle(_x, _y, 40, 40);
-  drawLayer2.fill(_r, _g, _b, _a);
-  drawLayer2.circle(_x, _y, 40, 40);
-  drawLayer.loadPixels();
-  drawLayer2.loadPixels();
+    drawLayer.fill(_r, _g, _b, _a);
+    drawLayer.circle(_x, _y, 40, 40);
+    drawLayer2.fill(_r, _g, _b, _a);
+    drawLayer2.circle(_x, _y, 40, 40);
+    drawLayer.loadPixels();
+    drawLayer2.loadPixels();
 
-}
-
-
-function draw() {
-
-  if (introState === 3) {
-    if (interrupt){
-            image(bg, 0, 0, width, height);
-      image(leafChoice, 0, 0, width, height);
-    }
-    else{
-    image(bg, 0, 0, width, height);
-    image(leafLayer, 0, 0, width, height);
-    blendMode(DARKEST);
-    image(drawLayer, 0, 0, width, height);
-    blendMode(BLEND);
-    image(uiLayer, 0, 0, width, height);
   }
-}
 
-}
+
+  function draw() {
+
+    if (introState === 3) {
+      if (interrupt) {
+        image(bg, 0, 0, width, height);
+        image(leafChoice, 0, 0, width, height);
+      } else {
+        image(bg, 0, 0, width, height);
+        image(leafLayer, 0, 0, width, height);
+        blendMode(DARKEST);
+        image(drawLayer, 0, 0, width, height);
+        blendMode(BLEND);
+        image(uiLayer, 0, 0, width, height);
+      }
+    }
+
+  }
