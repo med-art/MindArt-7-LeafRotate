@@ -117,8 +117,7 @@ function makeSwatch() {
     for (let i = 1; i < 7; i++) {
       uiLayer.fill(color(hexColours[i - 1]));
       uiLayer.noStroke();
-      uiLayer.rect()
-      uiLayer.rect(0, (rectWidth * i) - rectWidth, rectWidth / 2, rectWidth * i);
+          uiLayer.rect(0, (rectWidth * i) - rectWidth, rectWidth / 2, rectWidth * i);
       image(uiLayer, 0, 0);
     }
   }

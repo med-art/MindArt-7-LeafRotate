@@ -168,26 +168,26 @@ function makeDrawing(_x, _y, pX, pY) {
 }
 
 
-function wetDrawing(_x, _y, pX, pY) {
-  //  colTemp = drawLayer.get(_x, _y);
-  let _r, _g, _b, _a;
+function wetDrawing(_x, _y) {
+
+  let _r = 0;
+  let _b = 0;
+  let _g = 0;
+  let _a = 0;
 
   let off = (winMouseY * width + winMouseX) * 1 * 4;
-
     _r = drawLayer2.pixels[off];
     _g = drawLayer2.pixels[off + 1];
     _b = drawLayer2.pixels[off + 2];
     _a = drawLayer2.pixels[off + 3] * 0.1;
 
-  // drawLayer.stroke(_r, _g, _b, _a);
-  // drawLayer.strokeWeight(25); // for line work
+
   drawLayer.fill(_r, _g, _b, _a);
   drawLayer.circle(_x, _y, 40, 40);
   drawLayer2.fill(_r, _g, _b, _a);
   drawLayer2.circle(_x, _y, 40, 40);
-  // drawLayer.line(_x, _y, pX, pY);
-  drawLayer.loadPixels(); // relocated here in effor to optimise
-  drawLayer2.loadPixels(); // relocated here in effor to optimise
+  drawLayer.loadPixels();
+  drawLayer2.loadPixels();
 
 }
 
