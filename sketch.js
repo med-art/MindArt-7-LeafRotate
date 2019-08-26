@@ -202,7 +202,7 @@ function draw() {
   if (introState === 3) {
     image(bg, 0, 0, width, height);
     image(leafLayer, 0, 0, width, height);
-    image(drawLayer2, 0, 0, width, height);
+    image(drawLayer, 0, 0, width, height);
     image(uiLayer, 0, 0, width, height);
   }
 
