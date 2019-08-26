@@ -75,7 +75,7 @@ function dimensionCalc() {
 
 }
 
-function touchStarted() {
+function mousePressed() {
 
 
   if (introState === 0) {
@@ -110,7 +110,9 @@ function touchStarted() {
 
   }
 
-//  return false;
+
+
+  //  return false;
 }
 
 
@@ -159,17 +161,15 @@ function wetDrawing(_x, _y, pX, pY) {
 
   let off = (winMouseY * width + winMouseX) * 1 * 4;
 
-  _r = drawLayer.pixels[off] * 1.01;
-  _g = drawLayer.pixels[off + 1] * 1.01
-  _b = drawLayer.pixels[off + 2] * 1.01;
-    _a = drawLayer.pixels[off + 3] * 1.01;
+    _r = drawLayer.pixels[off];
+    _g = drawLayer.pixels[off + 1];
+    _b = drawLayer.pixels[off + 2];
+    _a = drawLayer.pixels[off + 3] * 0.1;
 
-  if (_a > 0) {
-    drawLayer.stroke(_r, _g, _b, 30);
-    drawLayer.strokeWeight(25); // for line work
-    drawLayer.line(_x, _y, pX, pY);
-    drawLayer.loadPixels(); // relocated here in effor to optimise
-  }
+  drawLayer.stroke(_r, _g, _b, _a);
+  drawLayer.strokeWeight(25); // for line work
+  drawLayer.line(_x, _y, pX, pY);
+  drawLayer.loadPixels(); // relocated here in effor to optimise
 
 
 }
