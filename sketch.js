@@ -158,7 +158,7 @@ function touchMoved() {
 
 
 function makeDrawing(_x, _y, pX, pY) {
-  drawLayer.strokeWeight(constrain(abs((_y + _x) - (pX + pY)), 40, 50)); // for line work
+  drawLayer.strokeWeight(constrain(abs((_y + _x) - (pX + pY)), 5, 10)); // for line work
   drawLayer.stroke(getCol);
   drawLayer.line(_x, _y, pX, pY);
 }
