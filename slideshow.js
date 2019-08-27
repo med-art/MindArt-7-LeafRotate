@@ -1,7 +1,7 @@
 let introText = ["Touch", "Listen", "Look"];
 let slide = 0;
-let delayTime = 700;
-let introState = 0; 
+let delayTime = 7000;
+let introState = 0;
 
 function slideShow() {
 
