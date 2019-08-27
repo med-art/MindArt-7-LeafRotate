@@ -229,9 +229,11 @@ function restart() {
   // drawLayer2.rect(0,0, width, height);
   leafSelector = int(random(0, 13));
   rot = 0;
-  drawState = 0;
+  drawState = 1;
+    rotateImg();
   touchMoved();
-  rotateImg();
+
+  drawImg();
 
 
 }

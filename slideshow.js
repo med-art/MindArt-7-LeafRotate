@@ -14,6 +14,7 @@ function slideShow() {
       noTint();
       image(bg, 0, 0, width, height);
       rot = 0;
+      rotateImg();
       touchMoved();
       restart();
       makeSwatch();

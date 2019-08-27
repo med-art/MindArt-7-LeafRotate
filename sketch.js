@@ -26,7 +26,7 @@ let rotStart = 0;
 let rotEnd = 0;
 
 
-let drawState = 0;
+let drawState = 1;
 
 let colTemp;
 
@@ -134,10 +134,13 @@ function mousePressed() {
       rotStart = atan2(mouseY - height / 2, mouseX - width / 2);
       if (width <= height && mouseY > (height - rectWidth / 2)) {
         getCol = uiLayer.get(winMouseX, winMouseY);
+          drawImg();
       }
       if (width > height && mouseX < rectWidth / 2) {
         getCol = uiLayer.get(winMouseX, winMouseY);
+          drawImg();
       }
+
     }
 
 
@@ -211,7 +214,7 @@ function mousePressed() {
     _r = drawLayer2.pixels[off];
     _g = drawLayer2.pixels[off + 1];
     _b = drawLayer2.pixels[off + 2];
-    _a = drawLayer2.pixels[off + 3] * 0.08;
+    _a = drawLayer2.pixels[off + 3] * 0.1;
 
 
     drawLayer.fill(_r, _g, _b, _a);
