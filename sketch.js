@@ -211,7 +211,7 @@ function mousePressed() {
     _r = drawLayer2.pixels[off];
     _g = drawLayer2.pixels[off + 1];
     _b = drawLayer2.pixels[off + 2];
-    _a = drawLayer2.pixels[off + 3] * 0.04;
+    _a = drawLayer2.pixels[off + 3] * 0.08;
 
 
     drawLayer.fill(_r, _g, _b, _a);
