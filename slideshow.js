@@ -1,14 +1,23 @@
-let introText = ["Touch to Begin", "Look", "Listen", "Touch"];
+let introText = ["Touch", "Listen", "Look"];
 let slide = 0;
-let delayTime = 700;
+let delayTime = 7000;
 let introState = 0; // 3 way state. State 0 is intro begun, state 1 is intro over and waiting for input, state 2 is active painting
 let c1, c2;
 
 function slideShow() {
 
 
-  if (slide === introText.length-1) {
-    introState = 2; // allowstouch
+  if (slide === introText.length) {
+      textLayer.clear();
+      introState = 3;
+      writeTextUI();
+      noTint();
+      image(bg, 0, 0, width, height);
+      rot = 0;
+      touchMoved();
+      restart();
+      makeSwatch();
+      console.log(getCol);
 
   }
 
@@ -16,8 +25,11 @@ function slideShow() {
     textLayer.blendMode(BLEND);
     textLayer.clear();
     c2 = color("#FA6122");
-    c1 = color("#faa27d");
-    setGradient(c1, c2);
+    c1 = color("#FA6122");
+    //setGradient(c1, c2);
+    textLayer.fill("#FA6122");
+    textLayer.rectMode(CORNER);
+    textLayer.rect(0,0,width,height);
     textLayer.fill(color("WHITE"));
     textLayer.textSize(lmax * 5);
     textLayer.textAlign(CENTER, CENTER);

@@ -7,7 +7,7 @@ let scalar = 1.0;
 let interrupt = 0;
 
 let brushColours = [239, 51, 64, 168, 199, 0, 255, 215, 0, 241, 230, 178, 0, 107, 56];
-let hexColours = ["#EF3340", "#A8C700", "#FFD700", "#FA6122", "#007236", "#4C6A90"]
+let hexColours = ["#EF3340", "#f7f7f7", "#FFD700", "#FA6122", "#007236", "#4166f5"]
 
 let leafCount = 0;
 
@@ -145,13 +145,15 @@ function leafChooser() {
   c2 = color("#FA6122");
   c1 = color("#faa27d");
 
-  noFill();
-  for (var y = 0; y < height; y++) {
-    var inter = map(y, 0, height, 0, 1);
-    var c = lerpColor(c1, c2, inter);
-    leafChoice.stroke(c);
-    leafChoice.line(0, y, width, y);
-  }
+  leafChoice.rectMode(CORNER);
+  leafChoice.fill("#FA6122");
+  leafChoice.rect(0,0,width,height);
+  // for (var y = 0; y < height; y++) {
+  //   var inter = map(y, 0, height, 0, 1);
+  //   // var c = lerpColor(c1, c2, inter);
+  //   // leafChoice.stroke(c);
+  //   // leafChoice.line(0, y, width, y);
+  // }
 
 
 if (width < height){

@@ -125,24 +125,12 @@ function mousePressed() {
         leafCounter++;
       }
      else if (introState === 0) {
-      audio.loop(7);
+      audio.loop();
       slide = 1;
       slideShow();
       introState = 1;
 
-    } else if (introState === 2) {
-
-      textLayer.clear();
-      introState = 3;
-      writeTextUI();
-      makeSwatch();
-      noTint();
-      image(bg, 0, 0, width, height);
-      rot = 0;
-      touchMoved();
-      restart();
-
-    } else if (introState === 3) {
+    }  else if (introState === 3) {
       rotStart = atan2(mouseY - height / 2, mouseX - width / 2);
       if (width <= height && mouseY > (height - rectWidth / 2)) {
         getCol = uiLayer.get(winMouseX, winMouseY);
@@ -227,9 +215,9 @@ function mousePressed() {
 
 
     drawLayer.fill(_r, _g, _b, _a);
-    drawLayer.circle(_x, _y, 40, 40);
+    drawLayer.circle(_x, _y, 30, 30);
     drawLayer2.fill(_r, _g, _b, _a);
-    drawLayer2.circle(_x, _y, 40, 40);
+    drawLayer2.circle(_x, _y, 30, 30);
     drawLayer.loadPixels();
     drawLayer2.loadPixels();
 
