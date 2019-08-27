@@ -233,7 +233,7 @@ function mousePressed() {
       } else {
         image(bg, 0, 0, width, height);
         image(leafLayer, 0, 0, width, height);
-        blendMode(DARKEST);
+        //blendMode(DARKEST);
         image(drawLayer, 0, 0, width, height);
         blendMode(BLEND);
         image(uiLayer, 0, 0, width, height);

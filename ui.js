@@ -225,8 +225,8 @@ function restart() {
   drawLayer2.clear();
   drawLayer.fill(255);
   drawLayer2.fill(255);
-  drawLayer.rect(0,0, width, height);
-  drawLayer2.rect(0,0, width, height);
+  // drawLayer.rect(0,0, width, height);
+  // drawLayer2.rect(0,0, width, height);
   leafSelector = int(random(0, 13));
   rot = 0;
   drawState = 0;
