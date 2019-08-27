@@ -193,6 +193,8 @@ function rotateImg() {
   button3.class('deselect');
   button3.class('deselect');
   drawState = 0;
+  rot = 0;
+
 }
 
 function drawImg() {
@@ -228,9 +230,9 @@ function restart() {
   // drawLayer.rect(0,0, width, height);
   // hiddenLayer.rect(0,0, width, height);
   leafSelector = int(random(0, 13));
-  rot = 0;
   drawState = 1;
   rotateImg();
+  mousePressed();
   touchMoved();
   drawImg();
 
