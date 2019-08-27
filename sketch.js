@@ -1,35 +1,14 @@
 let leaf = [];
-
-let tempwinMouseX = 0;
-let tempwinMouseY = 0;
-let tempwinMouseX2 = 0;
-let tempwinMouseY2 = 0;
-let leafLayer, permaLine;
-let dotSize = 4;
-let dotQty = 20;
-let ringQty = 0;
+let leafLayer;
 let hueDrift, brightDrift, satDrift;
-let throughDotCount = 0;
+
 let longEdge, shortEdge, circleRad, lmax, wmax, hmax;
-let primaryArray = [360, 60, 240];
-let colHue = 360,
-  colSat = 100,
-  colBri = 100;
-let stage = 0;
-let dotsCount = 0;
-let hueCapture = 0;
-let verifyX = 0;
-let verifyY = 0;
 
 let rot = 0
 let rotStart = 0;
 let rotEnd = 0;
 
-
 let drawState = 1;
-
-let colTemp;
-
 let getCol = "#EF3340";
 
 let leafSelector = 0;
@@ -45,20 +24,31 @@ function preload() {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   pixelDensity(1); // Ignores retina displays
+
+  // Create all layers for this sketch, and set their colourModes.
+  // to Store main leaves
   leafLayer = createGraphics(width, height);
-  drawLayer = createGraphics(width, height);
-  drawLayer2 = createGraphics(width, height);
-  uiLayer = createGraphics(width, height);
-  textLayer = createGraphics(width, height);
-  leafChoice = createGraphics(width, height);
-  colorMode(HSB, 360, 100, 100, 100);
   leafLayer.colorMode(HSB, 360, 100, 100, 100);
+
+  //Visible draw Layer
+  drawLayer = createGraphics(width, height);
   drawLayer.colorMode(RGB, 255, 255, 255, 100);
   drawLayer.stroke(0, 0, 0, 0);
   drawLayer.fill(0, 0, 0, 0);
-  drawLayer2.colorMode(RGB, 255, 255, 255, 100);
-  drawLayer2.stroke(0, 0, 0, 0);
-  drawLayer2.fill(0, 0, 0, 0);
+
+  hiddenLayer = createGraphics(width, height);
+  hiddenLayer.colorMode(RGB, 255, 255, 255, 100);
+  hiddenLayer.stroke(0, 0, 0, 0);
+  hiddenLayer.fill(0, 0, 0, 0);
+
+  uiLayer = createGraphics(width, height);
+  textLayer = createGraphics(width, height);
+  leafChoice = createGraphics(width, height);
+
+  colorMode(HSB, 360, 100, 100, 100);
+
+
+
   //drawLayer.blendMode(REPLACE);
   dimensionCalc();
   //showIntro();
@@ -151,8 +141,8 @@ function mousePressed() {
   function mouseReleased() {
     drawLayer.stroke(0, 0, 0, 0);
     drawLayer.fill(0, 0, 0, 0);
-    drawLayer2.stroke(0, 0, 0, 0);
-    drawLayer2.fill(0, 0, 0, 0);
+    hiddenLayer.stroke(0, 0, 0, 0);
+    hiddenLayer.fill(0, 0, 0, 0);
   }
 
 
@@ -188,7 +178,7 @@ function mousePressed() {
     leafLayer.rotate(rot);
     leafLayer.translate(0, -height / 10);
     leafLayer.tint(255, 10);
-    leafLayer.image(leaf[leafSelector], 0, 0, (shortEdge / 1.15) * scalar, (shortEdge / 1.15) * scalar);
+    leafLayer.image(leaf[leafSelector], 0, 0, (shortEdge / 1.2) * scalar, (shortEdge / 1.2) * scalar);
     leafLayer.pop();
 
   }
@@ -197,9 +187,9 @@ function mousePressed() {
     drawLayer.strokeWeight(constrain(abs((_y + _x) - (pX + pY)), 3.5, 8)); // for line work
     drawLayer.stroke(getCol);
     drawLayer.line(_x, _y, pX, pY);
-    drawLayer2.strokeWeight(constrain(abs((_y + _x) - (pX + pY)), 40, 110)); // for line work
-    drawLayer2.stroke(getCol);
-    drawLayer2.line(_x, _y, pX, pY);
+    hiddenLayer.strokeWeight(constrain(abs((_y + _x) - (pX + pY)), 40, 110)); // for line work
+    hiddenLayer.stroke(getCol);
+    hiddenLayer.line(_x, _y, pX, pY);
   }
 
 
@@ -211,18 +201,18 @@ function mousePressed() {
     let _a = 0;
 
     let off = (winMouseY * width + winMouseX) * 1 * 4;
-    _r = drawLayer2.pixels[off];
-    _g = drawLayer2.pixels[off + 1];
-    _b = drawLayer2.pixels[off + 2];
-    _a = drawLayer2.pixels[off + 3] * 0.1;
+    _r = hiddenLayer.pixels[off];
+    _g = hiddenLayer.pixels[off + 1];
+    _b = hiddenLayer.pixels[off + 2];
+    _a = hiddenLayer.pixels[off + 3] * 0.095;
 
 
     drawLayer.fill(_r, _g, _b, _a);
     drawLayer.circle(_x, _y, 30, 30);
-    drawLayer2.fill(_r, _g, _b, _a);
-    drawLayer2.circle(_x, _y, 30, 30);
+    hiddenLayer.fill(_r, _g, _b, _a);
+    hiddenLayer.circle(_x, _y, 30, 30);
     drawLayer.loadPixels();
-    drawLayer2.loadPixels();
+    hiddenLayer.loadPixels();
 
   }
 
