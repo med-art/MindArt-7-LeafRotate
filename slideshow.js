@@ -1,37 +1,66 @@
-let introText = ["Touch", "Listen", "Look"];
-let slide = 0;
-let delayTime = 7000;
+let introText = ["Touchez", "Regardez", "Ecoutez", "Touchez"];
+let slide = 4;
+let delayTime = 800;
 let introState = 0;
+let startButton;
+let sliderTouch = 0;
+
+
+function mousePressed() {
+  if (introState < 3) {
+    if (audio.isPlaying()) {} else {
+      audio.loop(5);
+    }
+
+  }
+  if (slide === 0) {
+    click.play();
+    startButton.remove();
+    slide++;
+    slideShow();
+  }
+
+
+  if (mouseX > (4 * hmax) && mouseX < (12 * hmax) && mouseY > (4 * hmax) && mouseY < height - (4 * hmax)) {
+    sliderTouch = 1;
+  }
+
+
+  return false;
+}
 
 function slideShow() {
+  if (slide === 0) {
 
+    startButton = createButton(introText[0]);
+    startButton.class("startButton");
+    startButton.position((width / 2) - (12 * vMax), (height / 2) - (4 * vMax));
+  }
   if (slide === introText.length) {
     textLayer.clear();
     introState = 3;
+
+    //windowResized();
     writeTextUI();
-    makeSwatch();
-    restart();
-  }
+    rotateLeaf(width/1.5,height);
+      makeSlider();
+      makeScaler();
 
-  if (slide < introText.length) {
 
+    counter = 0;
+  } else if (slide < introText.length && slide > 0) {
     textLayer.clear();
-    textLayer.fill("#FA6122");
-    textLayer.rectMode(CORNER);
-    textLayer.rect(0, 0, width, height);
-    textLayer.fill(color("WHITE"));
-    textLayer.textSize(lmax * 6);
+    textLayer.fill(255, 5);
+    textLayer.textSize(vMax * 8);
     textLayer.textAlign(CENTER, CENTER);
     textLayer.rectMode(CENTER);
-    textLayer.text(introText[slide], width / 2, hmax * 50, width * 0.8, height);
-
-    image(bg, 0, 0, width, height);
-    image(textLayer, 0, 0, width, height);
-
     if (slide > 0) {
+      if (slide === introText.length - 1) {
+        delayTime = 1000;
+      }
       slide++;
+
       setTimeout(slideShow, delayTime);
     }
-
   }
 }
