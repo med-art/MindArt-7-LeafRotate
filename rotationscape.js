@@ -75,9 +75,6 @@ function dimensionCalc() {
   }
 }
 
-
-
-
 function mouseReleased() {
   drawLayer.stroke(0, 0, 0, 0);
   drawLayer.fill(0, 0, 0, 0);
@@ -94,47 +91,40 @@ function touchMoved() {
   } else if (drawState === 2) {
     wetDrawing(winMouseX, winMouseY);
   }
-
-if (sliderTouch === 1){
-   if (mouseX > (4 * hmax) && mouseX < (12 * hmax) && mouseY > (4 * hmax) && mouseY < height/2 - (4 * hmax)) {
-     makeSlider();
-     rotateLeaf(mouseX, mouseY);
-   }
-
-   if (mouseX > (4 * hmax) && mouseX < (13 * hmax) && mouseY > (height/2)+(4 * hmax) && mouseY < height - (4 * hmax)) {
-     makeScaler();
-     scalar = mouseY/height;
-
-     leafLayer.push();
-     leafLayer.clear();
-     leafLayer.imageMode(CENTER);
-     leafLayer.translate(width / 2, height / 2);
-       leafLayer.rotate(rot);
-     leafLayer.translate(0, -height / 6);
-     leafLayer.tint(255, 25);
-     leafLayer.image(leaf[leafSelector], 0, 0, (shortEdge / 0.5) * scalar, (shortEdge / .5) * scalar);
-     leafLayer.pop();
-     strokeLayer.push();
-     strokeLayer.clear();
-     strokeLayer.imageMode(CENTER);
-     strokeLayer.translate(width / 2, height / 2);
+  if (sliderTouch === 1) {
+    if (mouseX > (4 * hmax) && mouseX < (12 * hmax) && mouseY > (4 * hmax) && mouseY < height / 2 - (4 * hmax)) {
+      makeSlider();
+      rotateLeaf(mouseX, mouseY);
+    }
+    if (mouseX > (4 * hmax) && mouseX < (13 * hmax) && mouseY > (height / 2) + (4 * hmax) && mouseY < height - (4 * hmax)) {
+      makeScaler();
+      scalar = mouseY / height;
+      leafLayer.push();
+      leafLayer.clear();
+      leafLayer.imageMode(CENTER);
+      leafLayer.translate(width / 2, height / 2);
+      leafLayer.rotate(rot);
+      leafLayer.translate(0, -height / 6);
+      leafLayer.image(leaf[leafSelector], 0, 0, (shortEdge / 0.5) * scalar, (shortEdge / .5) * scalar);
+      leafLayer.pop();
+      strokeLayer.push();
+      strokeLayer.clear();
+      strokeLayer.imageMode(CENTER);
+      strokeLayer.translate(width / 2, height / 2);
       strokeLayer.rotate(rot);
-         strokeLayer.translate(0, -height / 6);
-     strokeLayer.image(leafFill[leafSelector], 0, 0, (shortEdge / .5) * scalar, (shortEdge / .5) * scalar);
-     strokeLayer.pop();
-     //rotateLeaf(mouseX, mouseY);
-   }
- }
-
-
+      strokeLayer.translate(0, -height / 6);
+      strokeLayer.image(leafFill[leafSelector], 0, 0, (shortEdge / .5) * scalar, (shortEdge / .5) * scalar);
+      strokeLayer.pop();
+      //rotateLeaf(mouseX, mouseY);
+    }
+  }
   return false;
 }
 
 function rotateLeaf(_x, _y) {
   // rotEnd = atan2(_x - height / 2, _y - width / 2);
   // rot = rot + (rotEnd - rotStart);
-  rot = (_y/height)*6*PI;
-  console.log(rot);
+  rot = (_y / height) * 6 * PI;
   //rotStart = rotEnd;
   leafLayer.push();
   leafLayer.clear();
@@ -142,9 +132,9 @@ function rotateLeaf(_x, _y) {
   leafLayer.translate(width / 2, height / 2);
   leafLayer.rotate(rot);
   leafLayer.translate(0, -height / 6);
-  leafLayer.tint(255, 25);
   leafLayer.image(leaf[leafSelector], 0, 0, (shortEdge / 0.5) * scalar, (shortEdge / .5) * scalar);
   leafLayer.pop();
+  
   strokeLayer.push();
   strokeLayer.clear();
   strokeLayer.imageMode(CENTER);
@@ -185,8 +175,6 @@ function wetDrawing(_x, _y) {
 }
 
 function draw() {
-
-
   if (introState === 3) {
     if (interrupt) {
       image(bg, 0, 0, width, height);

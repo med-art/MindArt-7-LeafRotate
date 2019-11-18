@@ -128,7 +128,7 @@ function changeBrush(brushSel) {
   rot = 1;
 
   brushSelected = brushSel-1;
-  console.log(brushSelected);
+
  selColour.remove();
   selColour = createImg('assets/colSelected.png');
   selColour.position((21.5 + ((brushSel-1) * 6)) * vMax, height - (16 * vMax));
