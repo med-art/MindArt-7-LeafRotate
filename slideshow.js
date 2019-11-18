@@ -26,7 +26,7 @@ function mousePressed() {
   }
 
 
-  return false;
+
 }
 
 function slideShow() {
