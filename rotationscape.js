@@ -134,7 +134,7 @@ function rotateLeaf(_x, _y) {
   leafLayer.translate(0, -height / 6);
   leafLayer.image(leaf[leafSelector], 0, 0, (shortEdge / 0.5) * scalar, (shortEdge / .5) * scalar);
   leafLayer.pop();
-  
+
   strokeLayer.push();
   strokeLayer.clear();
   strokeLayer.imageMode(CENTER);
@@ -146,6 +146,8 @@ function rotateLeaf(_x, _y) {
 }
 
 function makeDrawing(_x, _y, pX, pY) {
+
+  if (sliderTouch === 0){
   drawLayer.blendMode(BLEND);
   drawLayer.strokeWeight(constrain(abs((_y + _x) - (pX + pY)), 30, 60)); // for line work
   drawLayer.stroke(colArray[brushSelected]);
@@ -158,6 +160,7 @@ function makeDrawing(_x, _y, pX, pY) {
   // hiddenLayer.strokeWeight(constrain(abs((_y + _x) - (pX + pY)), 40, 110)); // for line work
   // hiddenLayer.stroke(getCol);
   // hiddenLayer.line(_x, _y, pX, pY);
+}
 }
 
 function wetDrawing(_x, _y) {
