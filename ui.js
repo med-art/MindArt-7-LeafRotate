@@ -53,7 +53,7 @@ function writeTextUI() {
 
 
       swatch1 = createButton("");
-      swatch1.position(22 * vMax, height - (13 * vMax));
+      swatch1.position(16 * vMax, height - (13 * vMax));
       swatch1.size(6 * vMax, 10.5 * vMax);
       swatch1.style("background-color", colArray[0]);
       swatch1.class("box");
@@ -62,7 +62,7 @@ function writeTextUI() {
       });
 
       swatch2 = createButton("");
-      swatch2.position(28 * vMax, height - (13 * vMax));
+      swatch2.position(22 * vMax, height - (13 * vMax));
       swatch2.size(6 * vMax, 10.5 * vMax);
       swatch2.style("background-color", colArray[1]);
       swatch2.class("box");
@@ -71,7 +71,7 @@ function writeTextUI() {
       });
 
       swatch3 = createButton("");
-      swatch3.position(34* vMax, height - (13 * vMax));
+      swatch3.position(28* vMax, height - (13 * vMax));
       swatch3.size(6 * vMax, 10.5 * vMax);
       swatch3.style('background-color', colArray[2]);
       swatch3.class("box");
@@ -80,7 +80,7 @@ function writeTextUI() {
       });
 
       swatch4 = createButton("");
-      swatch4.position(40 * vMax, height - (13 * vMax));
+      swatch4.position(34 * vMax, height - (13 * vMax));
       swatch4.size(6 * vMax, 10.5 * vMax);
       swatch4.style("background-color", colArray[3]);
       swatch4.class("box");
@@ -89,7 +89,7 @@ function writeTextUI() {
       });
 
       swatch5 = createButton("");
-      swatch5.position(46 * vMax, height - (13 * vMax));
+      swatch5.position(40 * vMax, height - (13 * vMax));
       swatch5.size(6 * vMax, 10.5 * vMax);
       swatch5.style("background-color", colArray[4]);
       swatch5.class("box");
@@ -98,7 +98,7 @@ function writeTextUI() {
       });
 
       swatch6 = createButton("");
-      swatch6.position(52 * vMax, height - (13 * vMax));
+      swatch6.position(46 * vMax, height - (13 * vMax));
       swatch6.size(6 * vMax, 10.5 * vMax);
       swatch6.style("background-color", colArray[5]);
       swatch6.class("box");
