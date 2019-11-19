@@ -7,6 +7,11 @@ let sliderTouch = 0;
 
 
 function mousePressed() {
+
+  if (mouseX > (4 * hmax) && mouseX < (12 * hmax) && mouseY > (4 * hmax) && mouseY < height - (4 * hmax)) {
+    sliderTouch = 1;
+  }
+
   if (introState < 3) {
     if (audio.isPlaying()) {} else {
       audio.loop(5);
@@ -21,9 +26,6 @@ function mousePressed() {
   }
 
 
-  if (mouseX > (4 * hmax) && mouseX < (12 * hmax) && mouseY > (4 * hmax) && mouseY < height - (4 * hmax)) {
-    sliderTouch = 1;
-  }
 
 
 

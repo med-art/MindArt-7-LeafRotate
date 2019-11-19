@@ -118,6 +118,7 @@ function touchMoved() {
       //rotateLeaf(mouseX, mouseY);
     }
   }
+  console.log("is this visible")
   return false;
 }
 
