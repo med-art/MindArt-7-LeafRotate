@@ -1,5 +1,5 @@
 let introText = ["Touchez", "Regardez", "Ecoutez", "Touchez"];
-let slide = 4;
+let slide = 0;
 let delayTime = 800;
 let introState = 0;
 let startButton;
