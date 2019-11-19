@@ -8,10 +8,10 @@ let sliderTouch = 0;
 
 function mousePressed() {
 
-  if (mouseX > (4 * hmax) && mouseX < (12 * hmax) && mouseY > (4 * hmax) && mouseY < height - (4 * hmax)) {
+  if (mouseX < 12 * hmax) {
     sliderTouch = 1;
-    scalarImg.ellipse(100, 100, width/2, height);
-      
+
+
   }
 
   if (introState < 3) {
