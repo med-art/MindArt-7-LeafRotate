@@ -108,7 +108,7 @@ function writeTextUI() {
 
 
         selColour = createImg('assets/colSelected.png');
-        selColour.position((21.5+ ((brushSelected) * 6)) * vMax, height - (16 * vMax));
+        selColour.position((15.5+ ((brushSelected) * 6)) * vMax, height - (16 * vMax));
         selColour.size(7 * vMax, 16 * vMax);
         selColour.mousePressed();
 
@@ -131,7 +131,7 @@ function changeBrush(brushSel) {
 
  selColour.remove();
   selColour = createImg('assets/colSelected.png');
-  selColour.position((21.5 + ((brushSel-1) * 6)) * vMax, height - (16 * vMax));
+  selColour.position((15.5 + ((brushSel-1) * 6)) * vMax, height - (16 * vMax));
   selColour.size(7 * vMax, 16 * vMax);
   selColour.mousePressed();
 
@@ -257,6 +257,7 @@ function restart() {
   // }
   drawLayer.clear();
   hiddenLayer.clear();
+  permaLayer.clear();
   drawLayer.fill(255);
   hiddenLayer.fill(255);
   // drawLayer.rect(0,0, width, height);
@@ -264,8 +265,12 @@ function restart() {
   leafSelector = int(random(0, 6));
   drawState = 1;
 //  rotateImg();
+leafLayer.clear();
+strokeLayer.clear();
   touchStarted();
   touchMoved();
+
+
   //drawImg();
 }
 
