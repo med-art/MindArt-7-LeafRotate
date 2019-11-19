@@ -6,9 +6,9 @@ let startButton;
 let sliderTouch = 0;
 
 
-function mousePressed() {
+function touchStarted() {
 
-  if (mouseX < 12 * hmax) {
+  if (mouseX < 12 * hmax && mouseY > (4 * hmax) && mouseY < height - (4 * hmax)) {
     sliderTouch = 1;
 
 
