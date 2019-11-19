@@ -277,6 +277,7 @@ strokeLayer.clear();
 function saveImg() {
   image(bg, 0, 0, width, height);
   image(drawLayer, 0, 0, width, height);
+  image(permaLayer,0,0,width,height);
   save('dotscape' + month() + day() + hour() + second() + '.jpg');
 }
 

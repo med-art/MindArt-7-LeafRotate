@@ -84,6 +84,7 @@ function mouseReleased() {
 }
 
 function touchMoved() {
+  if (introState === 3){
   if (drawState === 0) {
     rotateLeaf(mouseX, mouseY);
   } else if (drawState === 1) {
@@ -118,6 +119,7 @@ function touchMoved() {
       //rotateLeaf(mouseX, mouseY);
     }
   }
+}
   console.log("is this visible")
   return false;
 }
