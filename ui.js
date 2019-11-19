@@ -264,7 +264,7 @@ function restart() {
   leafSelector = int(random(0, 6));
   drawState = 1;
 //  rotateImg();
-  mousePressed();
+  touchStarted();
   touchMoved();
   //drawImg();
 }
