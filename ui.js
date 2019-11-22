@@ -38,17 +38,19 @@ function writeTextUI() {
   // button0 = createImg('assets/rotateOff.png');
   // updateButtons();3
 
+
+
   saveButton = createButton("Sauvegardez");
   saveButton.class("select");
   saveButton.style('font-size', '1.7vmax');
   saveButton.style('height', '5vmax');
-  saveButton.position(width - (14 * vMax), height - (12.5 * vMax));
+  saveButton.position(width - (15 * vMax), height - (14 * vMax));
   saveButton.mousePressed(saveImg);
   resetButton = createButton("Suivant");
   resetButton.class("select");
   resetButton.style('font-size', '1.7vmax');
   resetButton.style('height', '5vmax');
-  resetButton.position(width - (14 * vMax), height - (6.5 * vMax));
+  resetButton.position(width - (15 * vMax), height - (8 * vMax));
   resetButton.mousePressed(restart);
 
 
