@@ -299,7 +299,7 @@ function makeScaler(_y) {
   scalarImg.stroke(255);
   scalarImg.strokeWeight(7*hmax);
   scalarImg.line(6 * hmax, height/2+(4 * hmax), 6*hmax, height - (8 * hmax));
-  scalarImg.stroke("#EF3340");
+  scalarImg.stroke("#ef6500");
   scalarImg.strokeWeight(7*hmax);
   scalarImg.line(6 * hmax, height/2+(4 * hmax), 6 * hmax, constrain(_y, height/2+(4 * hmax), height - (8 * hmax)));
   scalarImg.imageMode(CENTER);
