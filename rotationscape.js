@@ -13,9 +13,14 @@ let getCol = "#EF3340";
 let leafSelector = 0;
 let _r, _b, _g, _a;
 let click;
-let introLayer;
+let introLayer, introLayer2;
 let sliderImg, sliderIcon;
 let sliderPressed = 0;
+let rotIntro = 0;
+let rotScale;
+let introActive = 0;
+let introColour = 0;
+let prevX, prevY; // used in intro (layer2)
 
 function preload() {
   bg = loadImage('assets/paper.jpg');
@@ -52,11 +57,16 @@ function setup() {
   hiddenLayer.fill(0, 0, 0, 0);
   textLayer = createGraphics(width, height);
   introLayer = createGraphics(width, height);
+  introLayer.noStroke();
+  introLayer.fill(255, 100);
+    introLayer2 = createGraphics(width, height);
+    introLayer2.noStroke();
   leafChoice = createGraphics(width, height);
   sliderImg = createGraphics(width, height);
   scalarImg = createGraphics(width, height);
   dimensionCalc();
   slideShow();
+
 }
 
 function dimensionCalc() {
@@ -73,7 +83,10 @@ function dimensionCalc() {
     vMax = height / 100;
     circleRad = shortEdge * 0.45;
   }
+  rotScale = 0;
 }
+
+
 
 function mouseReleased() {
   drawLayer.stroke(0, 0, 0, 0);
@@ -81,6 +94,14 @@ function mouseReleased() {
   hiddenLayer.stroke(0, 0, 0, 0);
   hiddenLayer.fill(0, 0, 0, 0);
   sliderTouch = 0;
+  introColour = int(random(0,colArray.length));
+
+
+
+
+  if (introState < 3){
+    introActive = 0;
+  }
 }
 
 function touchMoved() {
@@ -94,12 +115,12 @@ function touchMoved() {
   }
   if (sliderTouch === 1) {
     if (mouseX > (4 * hmax) && mouseX < (12 * hmax) && mouseY > (4 * hmax) && mouseY < height / 2 - (4 * hmax)) {
-      makeSlider();
+      makeSlider(mouseY);
       rotateLeaf(mouseX, mouseY);
     }
     if (mouseX > (4 * hmax) && mouseX < (13 * hmax) && mouseY > (height / 2) + (4 * hmax) && mouseY < height - (4 * hmax)) {
-      makeScaler();
-      scalar = mouseY / height;
+      makeScaler(mouseY);
+      scalar =(mouseY / (height/3))-1;
       leafLayer.push();
       leafLayer.clear();
       leafLayer.imageMode(CENTER);
@@ -120,7 +141,7 @@ function touchMoved() {
     }
   }
 }
-  console.log("is this visible")
+
   return false;
 }
 
@@ -129,6 +150,10 @@ function rotateLeaf(_x, _y) {
   // rot = rot + (rotEnd - rotStart);
   rot = (_y / height) * 6 * PI;
   //rotStart = rotEnd;
+drawLeaves();
+}
+
+function drawLeaves(){
   leafLayer.push();
   leafLayer.clear();
   leafLayer.imageMode(CENTER);
@@ -152,18 +177,26 @@ function makeDrawing(_x, _y, pX, pY) {
 
   if (sliderTouch === 0){
   drawLayer.blendMode(BLEND);
-  drawLayer.strokeWeight(constrain(abs((_y + _x) - (pX + pY)), 30, 60)); // for line work
-  drawLayer.stroke(colArray[brushSelected]);
-  drawLayer.line(_x, _y, pX, pY);
+  drawLayer.strokeWeight(constrain(abs((_y + _x) - (pX + pY)), 40, 60)); // for line work
+  drawLayer.stroke(colorChange(colArray[brushSelected], 0.2));
+  for (let i = 0; i < 3; i++){
+  let driftX = random(-30,30);
+  let driftY = random(-30,30);
+  drawLayer.line(_x+driftX, _y+driftY, pX+driftX, pY+driftY);
+  }
+
   drawLayer.blendMode(REMOVE)
   drawLayer.image(strokeLayer, 0, 0, width, height);
-  // THE PROBLEM IS HERE
-  // permaLayer.blendMode(BLEND);
   permaLayer.image(drawLayer, 0, 0, width, height);
-  // hiddenLayer.strokeWeight(constrain(abs((_y + _x) - (pX + pY)), 40, 110)); // for line work
-  // hiddenLayer.stroke(getCol);
-  // hiddenLayer.line(_x, _y, pX, pY);
+
 }
+}
+
+function colorChange(aColor, alpha) {
+  var c = color(aColor);
+  let rand = random(0.5, 1.5);
+
+  return color('rgba(' + [int(red(c)*rand), green(c), blue(c), alpha].join(',') + ')');
 }
 
 function wetDrawing(_x, _y) {
@@ -200,8 +233,38 @@ function draw() {
     if (slide > 0) {
       stroke(150);
       strokeWeight(7);
-      //line(xintro[throughDotCount - 1], yintro[throughDotCount - 1], mouseX, mouseY);
+
+      if (introActive){
+      let randX = randomGaussian(-40,40);
+      let randY = randomGaussian(-30,30);
+      introLayer2.push();
+      introLayer2.imageMode(CENTER);
+      introLayer2.translate(width / 2, height / 2);
+      introLayer2.rotate(rotIntro/30);
+
+      introLayer2.translate(randX, (rotScale/3));
+      for (let i = 0; i < 100; i++){
+      introLayer2.fill(colorChange(colArray[introColour], .1));
+      introLayer2.ellipse(0, randY, 35, 90);
+    }
+      introLayer2.pop();
+    }
+
+      rotIntro--;
+      introLayer.push();
+      introLayer.clear();
+      introLayer.imageMode(CENTER);
+      introLayer.translate(width / 2, height / 2);
+      introLayer.rotate(rotIntro/30);
+      introLayer.translate(0, rotScale++/3);
+      introLayer.ellipse(0, 0, 40, 100);
+      introLayer.pop();
+
+      image(introLayer2, 0, 0, width, height);
       image(introLayer, 0, 0, width, height);
+
+
+
     }
     if (slide === 0) {} else {
       textLayer.text(introText[slide - 1], width / 2, (height / 6) * (slide));

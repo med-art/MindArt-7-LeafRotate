@@ -269,9 +269,8 @@ leafLayer.clear();
 strokeLayer.clear();
   touchStarted();
   touchMoved();
+  drawLeaves();
 
-
-  //drawImg();
 }
 
 function saveImg() {
@@ -281,26 +280,26 @@ function saveImg() {
   save('dotscape' + month() + day() + hour() + second() + '.jpg');
 }
 
-function makeSlider() {
+function makeSlider(_y) {
   sliderImg.clear();
   sliderImg.stroke(255);
   sliderImg.strokeWeight(7*hmax);
   sliderImg.line(6 * hmax, 8 * hmax, 6*hmax, height/2 - (4 * hmax));
   sliderImg.stroke("#5cf22c");
   sliderImg.strokeWeight(7*hmax);
-  sliderImg.line(6 * hmax, 8 * hmax, 6*hmax, constrain(mouseY, 8*hmax, height/2 - (4 * hmax)));
+  sliderImg.line(6 * hmax, 8 * hmax, 6*hmax, constrain(_y, 8*hmax, height/2 - (4 * hmax)));
   sliderImg.imageMode(CENTER);
-  sliderImg.image(sliderIcon, 6*hmax, constrain(mouseY, 8*hmax, height/2 - (4 * hmax)), 6.5*hmax, 6.5*hmax);
+  sliderImg.image(sliderIcon, 6*hmax, constrain(_y, 8*hmax, height/2 - (4 * hmax)), 6.5*hmax, 6.5*hmax);
 }
 
-function makeScaler() {
+function makeScaler(_y) {
   scalarImg.clear();
   scalarImg.stroke(255);
   scalarImg.strokeWeight(7*hmax);
   scalarImg.line(6 * hmax, height/2+(4 * hmax), 6*hmax, height - (8 * hmax));
   scalarImg.stroke("#EF3340");
   scalarImg.strokeWeight(7*hmax);
-  scalarImg.line(6 * hmax, height/2+(4 * hmax), 6 * hmax, constrain(mouseY, height/2+(4 * hmax), height - (8 * hmax)));
+  scalarImg.line(6 * hmax, height/2+(4 * hmax), 6 * hmax, constrain(_y, height/2+(4 * hmax), height - (8 * hmax)));
   scalarImg.imageMode(CENTER);
-  scalarImg.image(sliderIcon, 6 * hmax, constrain(mouseY, height/2+(4 * hmax), height-8*hmax), 6.5*hmax, 6.5*hmax);
+  scalarImg.image(sliderIcon, 6 * hmax, constrain(_y, height/2+(4 * hmax), height-8*hmax), 6.5*hmax, 6.5*hmax);
 }

@@ -1,6 +1,6 @@
 let introText = ["Touchez", "Regardez", "Ecoutez", "Touchez"];
 let slide = 0;
-let delayTime = 800;
+let delayTime = 10000;
 let introState = 0;
 let startButton;
 let sliderTouch = 0;
@@ -17,7 +17,9 @@ function touchStarted() {
   if (introState < 3) {
     if (audio.isPlaying()) {} else {
       audio.loop(5);
+
     }
+    introActive = 1;
 
   }
   if (slide === 0) {
@@ -47,8 +49,8 @@ function slideShow() {
     //windowResized();
     writeTextUI();
     rotateLeaf(width/1.5,height);
-      makeSlider();
-      makeScaler();
+      makeSlider(height/4);
+      makeScaler(height-height/4);
 
 
     counter = 0;
@@ -60,7 +62,7 @@ function slideShow() {
     textLayer.rectMode(CENTER);
     if (slide > 0) {
       if (slide === introText.length - 1) {
-        delayTime = 1000;
+        delayTime = 10000;
       }
       slide++;
 
