@@ -14,7 +14,7 @@ let leafSelector = 0;
 let _r, _b, _g, _a;
 let click;
 let introLayer, introLayer2;
-let sliderImg, sliderIcon;
+let sliderImg, sliderIcon, sliderIcon2;
 let sliderPressed = 0;
 let rotIntro = 0;
 let rotScale;
@@ -33,6 +33,7 @@ function preload() {
   }
   alphatest = loadImage('assets/alpha.png');
   sliderIcon = loadImage('assets/slider.png');
+    sliderIcon2 = loadImage('assets/slider2.png');
 }
 
 function setup() {
