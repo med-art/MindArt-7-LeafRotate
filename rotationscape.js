@@ -236,15 +236,15 @@ function draw() {
 
       if (introActive){
       let randX = randomGaussian(-40,40);
-      let randY = randomGaussian(-30,30);
+      let randY = randomGaussian(-10,10);
       introLayer2.push();
       introLayer2.imageMode(CENTER);
       introLayer2.translate(width / 2, height / 2);
-      introLayer2.rotate(rotIntro/30);
+      introLayer2.rotate(rotIntro/70);
 
-      introLayer2.translate(randX, (rotScale/3));
+      introLayer2.translate(randX, (rotScale/5)+100);
       for (let i = 0; i < 100; i++){
-      introLayer2.fill(colorChange(colArray[introColour], .1));
+      introLayer2.fill(colorChange(colArray[introColour], .02));
       introLayer2.ellipse(0, randY, 35, 90);
     }
       introLayer2.pop();
@@ -255,8 +255,8 @@ function draw() {
       introLayer.clear();
       introLayer.imageMode(CENTER);
       introLayer.translate(width / 2, height / 2);
-      introLayer.rotate(rotIntro/30);
-      introLayer.translate(0, rotScale++/3);
+      introLayer.rotate(rotIntro/70);
+      introLayer.translate(0, (rotScale++/5)+100);
       introLayer.ellipse(0, 0, 40, 100);
       introLayer.pop();
 
