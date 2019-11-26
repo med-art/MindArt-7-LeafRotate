@@ -252,11 +252,12 @@ function draw() {
       dimensionCalc();
       textLayer.resizeCanvas(windowWidth, windowHeight);
       uiLayer = createGraphics(width, height);
-      textLayer = createGraphics(width, height);
       lineLayer = createGraphics(width, height);
-      introLayer = createGraphics(width, height);
+      introLayer.resizeCanvas(width, height);
       sliderImg.resizeCanvas(width, height);
       scalarImg.resizeCanvas(width, height);
+
+      introLayer2.resizeCanvas(width,height);
 
       if (introState === 3) {
 
