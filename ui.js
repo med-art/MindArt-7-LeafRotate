@@ -11,6 +11,11 @@ let colArray = ["#EF3340", "#f7f7f7", "#FFD700", "#FA6122", "#007236", "#4166f5"
 let leafCount = 0;
 let brushSelected = 0;
 
+
+let fsBool = 0;
+let fsButton;
+
+
 function updateButtons(){
   button.position(0 * vMax, height - (14 * vMax));
   button.size(14 * vMax, 14 * vMax);
@@ -113,6 +118,11 @@ function writeTextUI() {
         selColour.position((15.5+ ((brushSelected) * 6)) * vMax, height - (16 * vMax));
         selColour.size(7 * vMax, 16 * vMax);
         selColour.mousePressed();
+
+        fsButton = createImg('assets/enterFS.png');
+        fsButton.style('height', '4.5vMax');
+        fsButton.position(width-(7.5 * vMax), 1.5 * vMax);
+        fsButton.mousePressed(fs);
 
 
 
@@ -304,4 +314,20 @@ function makeScaler(_y) {
   scalarImg.line(6 * hmax, height/2+(4 * hmax), 6 * hmax, constrain(_y, height/2+(4 * hmax), height - (8 * hmax)));
   scalarImg.imageMode(CENTER);
   scalarImg.image(sliderIcon2, 6 * hmax, constrain(_y, height/2+(4 * hmax), height-8*hmax), 6.5*hmax, 6.5*hmax);
+}
+
+function fs(){
+  click.play();
+
+ if (!fsBool){
+   fullscreen(1);
+   fsBool = 1;
+ }
+
+ else{
+
+   fullscreen(0);
+   fsBool = 0;
+
+ }
 }
