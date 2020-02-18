@@ -2,7 +2,7 @@ let button1, button2, button3;
 let colH1, colH2, colH3;
 let rectWidth;
 let colChoice = 0,
-  scalar = 1.0;
+  scalar = 0.7;
 let interrupt = 0;
 let brushColours = [239, 51, 64, 168, 199, 0, 255, 215, 0, 241, 230, 178, 0, 107, 56];
 let colArray = ["#EF3340", "#f7f7f7", "#FFD700", "#FA6122", "#007236", "#4166f5"]
