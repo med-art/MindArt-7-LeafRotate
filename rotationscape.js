@@ -97,7 +97,7 @@ function mouseReleased() {
 }
 
 function touchStarted() {
-  if (dist(mouseX, mouseY, width / 2, height / 2) > vMin * 35) {
+  if (dist(mouseX, mouseY, width / 2, height / 2) > vMin * 40) {
     clockTouch = 1;
     push();
     translate(width / 2, height / 2);
