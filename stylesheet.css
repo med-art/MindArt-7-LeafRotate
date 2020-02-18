@@ -49,5 +49,7 @@ transform: translate(-50%, -50%);
   border-width: 0;
   border-color: rgb(200, 200, 200);
   border-radius: 0.7vmax;
+  width: 6vmax;
+  height: 10.5vmax;
 
 }
